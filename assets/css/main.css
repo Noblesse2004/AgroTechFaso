@@ -1,0 +1,3062 @@
+/* =============================================================================
+   AgroTech Faso — feuille de style unique
+   -----------------------------------------------------------------------------
+   DIRECTION ARTISTIQUE (10 lignes, à respecter avant toute modification)
+   1. Éditorial agricole, pas « startup tech » : beaucoup d'air, une idée par
+      section, filets fins plutôt qu'empilement de cartes.
+   2. Palette strictement issue du logo : vert dominant, terracotta en accent
+      parcimonieux, crème chaud, encre bleu-noir. Aplats uniquement.
+   3. Titres en Fraunces (serif chaleureux à fort contraste), texte en Archivo
+      (grotesque très lisible), chiffres tabulaires pour les données.
+   4. Rayon unique de 6 px sur tous les éléments interactifs. Pas de pilules.
+   5. Rythme : clair, teinté crème, sombre vert pour les investisseurs, clair.
+   6. Une seule idée par section, et des compositions variées : listes
+      numérotées, colonnes asymétriques, tableaux, grands chiffres.
+   7. Visuels : dessins SVG géométriques faits maison, jamais de banque
+      d'images ni d'illustration générée.
+   8. Chiffres toujours présentés comme des hypothèses, avec la méthode à
+      côté, jamais comme des résultats acquis.
+   9. Mobile d'abord : 17 px de base, cibles de 48 px, aucun débordement
+      horizontal, poids total de la page sous 1 Mo.
+   10. Micro-interactions sobres : opacity + 12 px de translation, 150-250 ms,
+      et rien du tout si prefers-reduced-motion est actif.
+
+   Sommaire
+     01 Polices auto-hebergees
+     02 Jetons de design
+     03 Base et elements
+     04 Utilitaires
+     05 En-tete et navigation
+     06 Hero
+     07 Probleme
+     08 Comment ca marche
+     09 Capteur
+     10 Benefices chiffres
+     11 Temoignages
+     12 Investisseurs
+     13 Video
+     14 Equipe
+     15 Questions frequentes
+     16 Contact
+     17 Pied de page
+     18 Impressions
+   ========================================================================== */
+
+/* ==========================================================================
+   01  Polices auto-hebergees
+   Sous-ensemble latin : couvre tout le repertoire francais, y compris
+   U+0152-0153 (OE, oe) et U+2000-206F (espaces, ponctuation, tirets).
+   Aucune requete vers un tiers, ce qui compte sur les reseaux lents.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   02  Jetons de design
+   Couleurs : les quatre teintes du logo, plus les neutres warmes qu'elles
+   impliquent. Chaque paire texte/fond a ete verifiee a 4,5:1 ou plus.
+   ========================================================================== */
+
+:root {
+  /* --- Couleurs issues du logo ------------------------------------------ */
+  --vert: #2e6b3a;            /* #2E6B3A : la teinte du logotype            */
+  --vert-clair: #74b37f;      /* meme teinte, valeur relevee : fond sombre   */
+  --vert-fonce: #122e1a;      /* fond de la section investisseurs            */
+  --vert-nuit: #0c2113;       /* fond du pied de page                       */
+  --terracotta: #b5542c;      /* #B5542C : accent, aplats et traits          */
+  --terracotta-clair: #d9773f;/* meme accent, releve pour fond sombre        */
+  --terracotta-encre: #9c4522;/* accent assombri, pour du texte sur clair    */
+  --creme: #f4ecdd;           /* #F4ECDD : papier chaud, aplats de section  */
+  --encre: #263238;           /* #263238 : texte principal                   */
+
+  /* --- Neutres derives ---------------------------------------------------- */
+  --papier: #fbf8f2;          /* fond clair principal, tres legerement chaud  */
+  --encre-douce: #55605f;     /* texte secondaire        6,1:1 sur papier     */
+  --terre: #e9dcc4;           /* aplats illustratifs (sol, terre)            */
+  --filet: #c9bca2;           /* filets decoratifs                          */
+  --filet-sombre: #2f4d37;    /* filets sur fond vert fonce                 */
+  --bordure: #7c8a7c;         /* bordures de champs de formulaire   3,4:1    */
+  --blanc: #ffffff;           /* uniquement pour les pastilles d'illustration */
+
+  /* --- Sur fond sombre ---------------------------------------------------- */
+  --texte-clair: #f4ecdd;     /* 12,5:1 sur --vert-fonce                    */
+  --texte-clair-doux: #c8d3c4; /* 9,0:1 sur --vert-fonce                    */
+
+  /* --- Typographie -------------------------------------------------------- */
+  --police-titre: "Fraunces", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, "Times New Roman", serif;
+  --police-texte: "Archivo", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --fz-base: clamp(1.0625rem, 1.005rem + 0.28vw, 1.125rem);   /* 17 -> 18 px */
+  --fz-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);     /* 18 -> 21 px */
+  --fz-h1: clamp(2.125rem, 1.35rem + 3.5vw, 4rem);           /* 34 -> 64 px */
+  --fz-h2: clamp(1.75rem, 1.35rem + 1.85vw, 2.875rem);       /* 28 -> 46 px */
+  --fz-h3: clamp(1.1875rem, 1.11rem + 0.38vw, 1.375rem);     /* 19 -> 22 px */
+  --fz-chiffre: clamp(2.375rem, 1.65rem + 3.3vw, 3.75rem);   /* 38 -> 60 px */
+  --fz-petit: 0.9375rem;                                      /* 15 px       */
+  --fz-surtitre: 0.8125rem;                                   /* 13 px       */
+
+  /* --- Rythme ------------------------------------------------------------- */
+  --e1: 0.25rem;
+  --e2: 0.5rem;
+  --e3: 0.75rem;
+  --e4: 1rem;
+  --e5: 1.5rem;
+  --e6: 2rem;
+  --e7: 3rem;
+  --e8: 4rem;
+  --e9: 6rem;
+  --gouttiere: clamp(1.25rem, 4.4vw, 3rem);
+  --section-y: clamp(3.5rem, 7.5vw, 7rem);
+  --largeur: 74rem;
+  --mesure: 34rem;
+
+  /* --- Formes ------------------------------------------------------------- */
+  --rayon: 6px;                 /* rayon unique, tous les elements cliquables */
+  --ombre: 0 1px 2px rgb(38 50 56 / 6%);  /* ombre unique, tres discrete      */
+  --transition: 200ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   03  Base et elements
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--encre);
+  font-family: var(--police-texte);
+  font-size: var(--fz-base);
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--police-titre);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+p,
+ul,
+ol,
+dl,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: var(--vert);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--terracotta-encre);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Cible de focus unique, visible sur fond clair comme sur fond sombre. */
+:focus-visible {
+  outline: 3px solid var(--terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.section--sombre :focus-visible {
+  outline-color: var(--terracotta-clair);
+}
+
+::selection {
+  background: var(--creme);
+  color: var(--encre);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   04  Utilitaires
+   ========================================================================== */
+
+/* Lien d'evitement : hors ecran jusqu'a reception du focus. */
+.aller-contenu {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 200;
+  transform: translate(-50%, -110%);
+  padding: 0.75rem 1.25rem;
+  background: var(--vert);
+  color: var(--blanc);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--rayon) var(--rayon);
+}
+
+.aller-contenu:focus-visible {
+  transform: translate(-50%, 0);
+  color: var(--blanc);
+}
+
+/* --- Sprite d'icones -----------------------------------------------------
+   Le sprite lui-meme ne doit etre ni lisible ni selectionnable ; chaque usage
+   fait avec <use> herite de la couleur du texte. */
+.sprites {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.icone {
+  display: inline-block;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: middle;
+}
+
+.icone--grand {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.conteneur {
+  width: min(100% - 2 * var(--gouttiere), var(--largeur));
+  margin-inline: auto;
+}
+
+.conteneur--etroit {
+  width: min(100% - 2 * var(--gouttiere), 58rem);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+  scroll-margin-top: 5.5rem;
+}
+
+.section--creme {
+  background: var(--creme);
+}
+
+.section--sombre {
+  background: var(--vert-fonce);
+  color: var(--texte-clair);
+}
+
+/* Surtitre de section : numero + intitule, sert de repere de lecture. */
+.surtitre {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: var(--e5);
+  font-size: var(--fz-surtitre);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terracotta-encre);
+}
+
+.surtitre::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--filet);
+}
+
+.section--sombre .surtitre {
+  color: var(--terracotta-clair);
+}
+
+.section--sombre .surtitre::after {
+  background: var(--filet-sombre);
+}
+
+.section__titre {
+  max-width: 20ch;
+  font-size: var(--fz-h2);
+}
+
+.section__chapeau {
+  max-width: var(--mesure);
+  margin-top: var(--e4);
+  font-size: var(--fz-lead);
+  line-height: 1.55;
+  color: var(--encre-douce);
+}
+
+.section--sombre .section__chapeau {
+  color: var(--texte-clair-doux);
+}
+
+/* Mention qui cadre le statut d'un chiffre. */
+.hypothese {
+  max-width: 46rem;
+  margin-top: var(--e5);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--filet);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+}
+
+.section--sombre .hypothese {
+  border-top-color: var(--filet-sombre);
+  color: var(--texte-clair-doux);
+}
+
+.hypothese strong {
+  color: var(--terracotta-encre);
+  font-weight: 600;
+}
+
+.section--sombre .hypothese strong {
+  color: var(--terracotta-clair);
+}
+
+/* Reveal au defilement. Les trois conditions — script actif, mouvement
+   accepte, bloc visible — sont reunies dans le meme bloc, et c'est
+   volontaire. Avant, le masquage etait pose sans condition et la regle qui
+   rendait la visibilite pour le mouvement reduit venait ensuite : moins
+   specifique, donc perdante. Un visiteur qui demande moins de mouvement
+   recevait quand meme une apparition en fondu. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .revele {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .js .revele.est-visible {
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+}
+
+/* --- Boutons ------------------------------------------------------------- */
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--rayon);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.bouton .icone {
+  flex: none;
+}
+
+.bouton--principal {
+  background: var(--vert);
+  color: var(--blanc);
+}
+
+.bouton--principal:hover {
+  background: #245730;
+  color: var(--blanc);
+}
+
+.bouton--second {
+  border-color: var(--vert);
+  background: transparent;
+  color: var(--vert);
+}
+
+.bouton--second:hover {
+  background: var(--vert);
+  color: var(--blanc);
+}
+
+.groupe-boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e3);
+}
+
+.groupe-boutons .bouton {
+  flex: 1 1 15rem;
+}
+
+/* --- Tableaux ------------------------------------------------------------ */
+
+.tableau-enveloppe {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tableau {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.tableau caption {
+  margin-bottom: var(--e3);
+  font-size: var(--fz-petit);
+  text-align: left;
+  color: var(--encre-douce);
+}
+
+.tableau th,
+.tableau td {
+  padding: 0.7rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tableau tbody tr {
+  border-top: 1px solid var(--filet);
+}
+
+.tableau tbody tr:first-child {
+  border-top: 0;
+}
+
+.tableau th {
+  font-weight: 400;
+  color: var(--encre-douce);
+}
+
+.tableau td {
+  font-weight: 600;
+}
+
+@media (min-width: 40rem) {
+  .tableau {
+    font-size: 1.0625rem;
+  }
+
+  .tableau th {
+    width: 42%;
+    padding-right: var(--e5);
+  }
+}
+
+/* ==========================================================================
+   05  En-tete et navigation
+   ========================================================================== */
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--papier);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.entete.est-defile {
+  border-bottom-color: var(--filet);
+  box-shadow: var(--ombre);
+}
+
+.entete__interieur {
+  display: flex;
+  align-items: center;
+  gap: var(--e4);
+  min-height: 4.25rem;
+}
+
+.entete__logo img {
+  width: 9.5rem;
+  height: auto;
+}
+
+/* --- Navigation, version mobile : panneau repliable ---------------------- */
+
+.nav-principale {
+  display: none;
+}
+
+/* Le bouton de contact du bandeau n'existe qu'a partir de 62rem : sur petit
+   ecran, il apparait dans le panneau ouvert. */
+.entete__action {
+  display: none;
+}
+
+.bouton-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  margin-left: auto;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: transparent;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-panneau {
+  position: fixed;
+  inset: 4.25rem 0 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e3);
+  padding: var(--e5) var(--gouttiere) var(--e7);
+  background: var(--papier);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nav-panneau[hidden] {
+  display: none;
+}
+
+.nav-panneau__liste {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-panneau__liste a {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  padding-block: 0.4rem;
+  border-bottom: 1px solid var(--filet);
+  font-family: var(--police-titre);
+  font-size: 1.375rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--encre);
+}
+
+.nav-panneau__liste a:hover {
+  color: var(--vert);
+}
+
+.nav-panneau__pied {
+  margin-top: auto;
+  padding-top: var(--e5);
+}
+
+.nav-panneau__pied .bouton {
+  width: 100%;
+}
+
+.nav-panneau__note {
+  margin-top: var(--e4);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+.nav-panneau__note a {
+  color: var(--vert);
+}
+
+/* --- Navigation, version large : barre horizontale ----------------------- */
+
+@media (min-width: 62rem) {
+  .bouton-menu {
+    display: none;
+  }
+
+  /* Le panneau mobile ne doit jamais rester visible si la fenetre s'elargit
+     alors qu'il etait ouvert. */
+  .nav-panneau {
+    display: none;
+  }
+
+  .entete__interieur {
+    min-height: 5rem;
+    gap: var(--e6);
+  }
+
+  .entete__logo img {
+    width: 11rem;
+  }
+
+  .nav-principale {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-principale ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.6vw, 1.5rem);
+  }
+
+  .nav-principale a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.25rem;
+    font-size: 0.9688rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--encre);
+    white-space: nowrap;
+  }
+
+  .nav-principale a:hover {
+    color: var(--vert);
+  }
+
+  .entete__action {
+    flex: none;
+  }
+
+  .entete__action .bouton {
+    min-height: 2.75rem;
+    padding-inline: 1.1rem;
+  }
+}
+
+/* ==========================================================================
+   06  Hero
+   ========================================================================== */
+
+.hero {
+  padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3rem, 7vw, 6rem);
+}
+
+.hero__grille {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  align-items: center;
+}
+
+.hero__accroche {
+  max-width: 30rem;
+  font-size: var(--fz-h1);
+}
+
+.hero__texte {
+  max-width: var(--mesure);
+  margin-top: var(--e5);
+  font-size: var(--fz-lead);
+  line-height: 1.55;
+  color: var(--encre-douce);
+}
+
+.hero__actions {
+  margin-top: var(--e6);
+}
+
+.hero__cultures {
+  margin-top: var(--e5);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+/* Deux entrees explicites, une par public. */
+.choix-public {
+  display: grid;
+  gap: 0;
+  margin-top: var(--e7);
+  border-top: 1px solid var(--filet);
+}
+
+.choix-public a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--e4);
+  min-height: 4rem;
+  padding-block: var(--e4);
+  border-bottom: 1px solid var(--filet);
+  text-decoration: none;
+  color: var(--encre);
+}
+
+.choix-public a:hover .choix-public__suite {
+  color: var(--terracotta-encre);
+}
+
+.choix-public__nom {
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.choix-public__detail {
+  display: block;
+  font-family: var(--police-texte);
+  font-size: var(--fz-petit);
+  font-weight: 400;
+  color: var(--encre-douce);
+}
+
+.choix-public__suite {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--vert);
+}
+
+.choix-public .icone {
+  transition: transform var(--transition);
+}
+
+.choix-public a:hover .icone {
+  transform: translateX(3px);
+}
+
+.hero__visuel {
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.hero__visuel figcaption {
+  margin-top: var(--e4);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+@media (min-width: 62rem) {
+  .hero__grille {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(3rem, 5vw, 5rem);
+  }
+
+  .hero__visuel {
+    max-width: none;
+  }
+}
+
+/* ==========================================================================
+   07  Probleme — grands chiffres typographiques
+   ========================================================================== */
+
+.chiffres {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--filet);
+}
+
+.chiffres__ligne {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e2);
+  padding-block: var(--e5);
+  border-bottom: 1px solid var(--filet);
+}
+
+.chiffres__terme {
+  font-family: var(--police-titre);
+  font-size: var(--fz-chiffre);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--vert);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.chiffres__note {
+  max-width: 44ch;
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+}
+
+@media (min-width: 48rem) {
+  .chiffres__ligne {
+    grid-template-columns: minmax(9rem, 0.85fr) minmax(0, 1.6fr);
+    column-gap: var(--e6);
+    align-items: start;
+  }
+
+  .chiffres__terme {
+    grid-row: 1;
+  }
+}
+
+@media (min-width: 75rem) {
+  .chiffres__ligne {
+    grid-template-columns: minmax(11rem, 0.8fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: baseline;
+  }
+
+  .chiffres__terme {
+    grid-row: auto;
+  }
+}
+
+/* ==========================================================================
+   08  Comment ca marche — trois etapes, compositions alternees
+   ========================================================================== */
+
+.etapes {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--filet);
+}
+
+.etape {
+  display: grid;
+  gap: var(--e5);
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--filet);
+}
+
+.etape__texte {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--e4);
+  align-content: start;
+}
+
+.etape__numero {
+  grid-row: 1 / span 3;
+  font-family: var(--police-titre);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--terracotta);
+  font-variant-numeric: tabular-nums;
+}
+
+.etape__titre {
+  font-family: var(--police-titre);
+  font-size: var(--fz-h3);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.etape__corps {
+  margin-top: var(--e3);
+  color: var(--encre-douce);
+}
+
+.etape__corps p + p {
+  margin-top: var(--e3);
+}
+
+.etape__visuel {
+  margin: 0;
+}
+
+.etape__visuel figcaption {
+  margin-top: var(--e3);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+@media (min-width: 52rem) {
+  .etape {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  /* Rythme alterne : texte, visuel, texte. Evite l'alignement monotone. */
+  .etape:nth-child(even) .etape__texte {
+    order: 2;
+  }
+
+  .etape:nth-child(even) .etape__visuel {
+    order: 1;
+  }
+}
+
+.rappel {
+  display: grid;
+  gap: var(--e3);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding: var(--e5);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+}
+
+.rappel__titre {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.rappel__titre .icone {
+  color: var(--vert);
+  flex: none;
+}
+
+.rappel p {
+  color: var(--encre-douce);
+}
+
+.rappel__liste {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: var(--e2);
+}
+
+.rappel__liste li {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.6rem;
+  color: var(--encre-douce);
+}
+
+.rappel__liste .icone {
+  margin-top: 0.28rem;
+  color: var(--vert);
+}
+
+/* ==========================================================================
+   09  Capteur — schema technique et tableau de caracteristiques
+   ========================================================================== */
+
+.capteur {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.capteur__schema {
+  margin: 0;
+  padding: var(--e5);
+  background: var(--papier);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+}
+
+.capteur__schema figcaption {
+  margin-top: var(--e4);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+@container (min-width: 30rem) {
+}
+
+@media (min-width: 58rem) {
+  .capteur {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+}
+
+/* ==========================================================================
+   10  Benefices chiffres
+   ========================================================================== */
+
+.benefices {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (min-width: 58rem) {
+  .benefices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 4rem);
+  }
+}
+
+/* ==========================================================================
+   11  Temoignages — cites separees par des filets, pas des cartes
+   ========================================================================== */
+
+.temoignages {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--filet);
+}
+
+.temoignage {
+  display: grid;
+  gap: var(--e3);
+  padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-bottom: 1px solid var(--filet);
+}
+
+.temoignage blockquote {
+  max-width: 48ch;
+  font-family: var(--police-titre);
+  font-size: clamp(1.1875rem, 1.08rem + 0.5vw, 1.5rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.42;
+  letter-spacing: -0.005em;
+}
+
+.temoignage figcaption {
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+.temoignage__nom {
+  display: block;
+  font-weight: 600;
+  color: var(--encre);
+}
+
+.temoignage__etiquette {
+  display: inline-block;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--terracotta-encre);
+}
+
+@media (min-width: 58rem) {
+  .temoignage {
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 15rem);
+    column-gap: var(--e7);
+    align-items: start;
+  }
+
+  .temoignage figcaption {
+    text-align: right;
+  }
+}
+
+.faits {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--filet-sombre);
+}
+
+.fait {
+  padding-block: var(--e4);
+  border-bottom: 1px solid var(--filet-sombre);
+}
+
+.fait__valeur {
+  font-family: var(--police-titre);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--vert-clair);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.fait__intitule {
+  margin-top: var(--e1);
+  font-weight: 600;
+  color: var(--creme);
+}
+
+.fait__note {
+  margin-top: var(--e1);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--texte-clair-doux);
+}
+
+/* ==========================================================================
+   12  Investisseurs — section sombre : allocation des fonds, marché, économie
+       unitaire de l'abonné. C'est la seule section sur fond vert foncé, ce
+       qui la distingue sans avoir besoin d'une bordure ou d'une carte.
+   ========================================================================== */
+
+/* La frise de l'allocation des fonds est stylee en 18.4, et seulement la.
+   Elle est nee deux fois dans cette feuille : une version ici, qui imposait
+   repeat(3) a une frise qui contient quatre phases, et une version en 18.4
+   qui faisait la meme chose avec repeat(4). La regle la plus forte gagnait,
+   donc la page s'affichait correctement par accident. Un jeu de regles mort
+   qui neutralise le bon est le genre de chose qui survit des annees : il ne
+   se voit pas, et il se reveille au premier changement de markup.
+   Ne pas reintroduire .frise ni .phase hors de 18.4. */
+
+/* ==========================================================================
+   13  Video — facade, rien n'est charge avant le clic
+   ========================================================================== */
+
+.video {
+  display: grid;
+  gap: var(--e5);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.video__cadre {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background: var(--vert-fonce);
+  border: 0;
+  border-radius: var(--rayon);
+  padding: 0;
+  cursor: pointer;
+}
+
+.video__affiche {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--e4);
+  padding: var(--e5);
+  color: var(--creme);
+}
+
+.video__cadre:hover .video__affiche {
+  background: #14351d;
+}
+
+.video__affiche svg {
+  width: 100%;
+  max-width: 22rem;
+  height: auto;
+}
+
+.video__titre {
+  font-family: var(--police-titre);
+  font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
+  font-weight: 600;
+  text-align: center;
+}
+
+.video__duree {
+  font-size: var(--fz-petit);
+  color: var(--texte-clair-doux);
+}
+
+/* Bouton de lecture : cible tactile large, trait unique. */
+.video__bouton {
+  display: grid;
+  place-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 2px solid var(--creme);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--creme);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.video__cadre:hover .video__bouton {
+  background: var(--creme);
+  color: var(--vert-nuit);
+}
+
+.video__cadre iframe,
+.video__cadre > div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video__note {
+  padding: var(--e4) 0 0;
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+@media (min-width: 58rem) {
+  .video {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    column-gap: var(--e7);
+    align-items: start;
+  }
+}
+
+/* ==========================================================================
+   14  Equipe
+   ========================================================================== */
+
+.equipe {
+  display: grid;
+  gap: 0;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--filet);
+}
+
+.membre {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  column-gap: var(--e4);
+  padding-block: var(--e5);
+  border-bottom: 1px solid var(--filet);
+}
+
+/* Monogramme, pas un portrait dessine : un associé sans photographie
+   officielle merite mieux que des traits qui pretendent etre son visage.
+   Trois fonds plats, une famille de trait, rien qui bouge au repos. */
+.membre__portrait {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  background: var(--creme);
+  color: var(--vert-fonce);
+  font-family: var(--police-titre);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.membre__portrait--amina {
+  background: #f7e6dc;
+  color: var(--terracotta-encre);
+  border-color: #e8c6b4;
+}
+
+.membre__portrait--ibrahim {
+  background: #e3ece0;
+  border-color: #c2d4bd;
+}
+
+.membre__texte {
+  min-width: 0;
+}
+
+.membre__nom {
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.membre__role {
+  margin-top: 0.15rem;
+  font-size: var(--fz-petit);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--terracotta-encre);
+}
+
+.membre__bio {
+  margin-top: var(--e3);
+  max-width: 56ch;
+  color: var(--encre-douce);
+}
+
+@media (min-width: 40rem) {
+  .membre {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    column-gap: var(--e5);
+    align-items: start;
+  }
+}
+
+/* ==========================================================================
+   15  Questions frequentes — accordéon natif, sans dependance
+   ========================================================================== */
+
+.faq {
+  display: grid;
+  gap: 0;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--filet);
+  max-width: 52rem;
+}
+
+.faq details {
+  border-bottom: 1px solid var(--filet);
+}
+
+.faq summary {
+  display: grid;
+  grid-template-columns: 1fr 1.5rem;
+  align-items: center;
+  column-gap: var(--e4);
+  min-height: 3.5rem;
+  padding-block: var(--e4);
+  font-family: var(--police-titre);
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary:hover {
+  color: var(--vert);
+}
+
+.faq details[open] summary .icone {
+  transform: rotate(90deg);
+}
+
+.faq__reponse {
+  max-width: 62ch;
+  padding-bottom: var(--e5);
+  color: var(--encre-douce);
+}
+
+.faq__reponse p + p {
+  margin-top: var(--e3);
+}
+
+.faq__reponse strong {
+  color: var(--encre);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   16  Contact
+   ========================================================================== */
+
+.contact {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+/* --- Formulaire ---------------------------------------------------------- */
+
+.formulaire {
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  background: var(--papier);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+}
+
+.champ {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: var(--e4);
+}
+
+.champ label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.champ input,
+.champ textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  font-size: 1rem;
+}
+
+.champ textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.champ input::placeholder,
+.champ textarea::placeholder {
+  color: #7f8a89;
+}
+
+.champ input:focus,
+.champ textarea:focus {
+  border-color: var(--vert);
+}
+
+.champ__erreur {
+  min-height: 1.25rem;
+  font-size: var(--fz-petit);
+  font-weight: 600;
+  color: var(--terracotta-encre);
+}
+
+@media (min-width: 58rem) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* ==========================================================================
+   17  Pied de page
+   ========================================================================== */
+
+.pied {
+  padding-block: clamp(2.5rem, 5vw, 4rem) var(--e6);
+  background: var(--vert-nuit);
+  color: var(--texte-clair-doux);
+}
+
+.pied__grille {
+  display: grid;
+  gap: var(--e6);
+}
+
+/* A gauche : la marque, puis le contact. Le telephone passe en gros, car
+   c'est le seul contact du pied de page qu'on utilise depuis le terrain. */
+.pied__identite {
+  display: grid;
+  gap: var(--e4);
+  align-content: start;
+}
+
+.pied__logo img {
+  width: 10rem;
+  height: auto;
+}
+
+.pied__baseline {
+  max-width: 34ch;
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+}
+
+.pied__contact {
+  display: grid;
+  gap: var(--e2);
+  margin-top: var(--e3);
+  padding-top: var(--e5);
+  border-top: 1px solid var(--filet-sombre);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+}
+
+.pied__tel {
+  font-family: var(--police-titre);
+  font-size: 1.3125rem;
+  font-weight: 600;
+  color: var(--creme);
+  font-variant-numeric: tabular-nums;
+}
+
+.pied__ecriture {
+  color: var(--texte-clair-doux);
+  width: fit-content;
+}
+
+.pied__ecriture:hover {
+  color: var(--creme);
+}
+
+.pied__ville {
+  color: var(--texte-clair-doux);
+}
+
+/* A droite : la navigation, repartie sur deux colonnes. Une seule longue
+   liste de neuf liens laissait un tiers de la ligne vide ; deux colonnes de
+   quatre remplissent la largeur et se parcourent en diagonale. */
+.pied__navigation {
+  display: grid;
+  gap: var(--e4);
+  align-content: start;
+}
+
+.pied__liste {
+  display: grid;
+  gap: var(--e2) var(--e6);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+}
+
+.pied__titre {
+  font-family: var(--police-texte);
+  font-size: var(--fz-surtitre);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vert-clair);
+}
+
+.pied__bas {
+  display: grid;
+  gap: var(--e4);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: var(--e5);
+  border-top: 1px solid var(--filet-sombre);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+}
+
+.pied__mention {
+  max-width: 58ch;
+}
+
+.pied__mention strong {
+  color: var(--creme);
+  font-weight: 600;
+}
+
+/* Deux colonnes des que la place existe. */
+@media (min-width: 26rem) {
+  .pied__liste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* A partir d ici, l identite a gauche et la navigation a droite, qui occupent
+   chacune la moitie de la largeur. */
+@media (min-width: 58rem) {
+  .pied__grille {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    column-gap: var(--e7);
+  }
+}
+
+@media (min-width: 48rem) {
+  .pied__bas {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--e7);
+  }
+}
+
+/* ==========================================================================
+   18  Compléments ajoutés après l'intégration du HTML.
+       Chaque bloc correspond a un morceau de markup réellement présent dans
+       index.html ; les sélecteurs ont été relevés sur le fichier, pas devinés.
+   ========================================================================== */
+
+/* --- 18.1  Schéma et liste de caractéristiques du capteur ---------------- */
+
+.capteur {
+  display: grid;
+  gap: var(--e6);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.capteur__schema {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--e3);
+  margin: 0;
+}
+
+.capteur__schema svg {
+  width: min(100%, 16rem);
+  height: auto;
+}
+
+.capteur__schema figcaption {
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+  text-align: center;
+}
+
+.faits {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--filet);
+}
+
+.fait {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e1);
+  padding-block: var(--e4);
+  border-bottom: 1px solid var(--filet);
+}
+
+.fait__valeur {
+  font-family: var(--police-titre);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--vert);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.fait__intitule {
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.fait__note {
+  max-width: 40ch;
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+}
+
+@media (min-width: 40rem) {
+  .capteur {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    column-gap: var(--e7);
+    align-items: start;
+  }
+}
+
+@media (min-width: 62rem) {
+  .fait {
+    grid-template-columns: minmax(6.5rem, 0.7fr) minmax(0, 1.3fr);
+    column-gap: var(--e5);
+    align-items: baseline;
+  }
+
+  .fait__valeur {
+    grid-row: 1 / span 2;
+  }
+}
+
+/* Encadré « ce que le capteur ne fait pas » : un filet, pas une carte. */
+.conteneur-jeu {
+  max-width: 46rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: var(--e5);
+  border-top: 1px solid var(--filet);
+}
+
+.conteneur-jeu__titre {
+  margin: 0 0 var(--e2);
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.conteneur-jeu__texte {
+  color: var(--encre-douce);
+  max-width: 62ch;
+}
+
+/* --- 18.2  Bénéfices : chiffres à gauche, liste secondaire à droite ------ */
+
+.benefices {
+  display: grid;
+  gap: var(--e7);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.benefices__principal {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--filet);
+}
+
+.benefice {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e2);
+  padding-block: var(--e5);
+  border-bottom: 1px solid var(--filet);
+}
+
+.benefice__valeur {
+  font-family: var(--police-titre);
+  font-size: var(--fz-chiffre);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--terracotta);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.benefice dd {
+  margin: 0;
+}
+
+.benefice__intitule {
+  font-size: 1.125rem;
+  font-weight: 600;
+  max-width: 30ch;
+}
+
+.benefice__note {
+  margin-top: var(--e1);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+  max-width: 44ch;
+}
+
+.benefices__secondaires {
+  display: grid;
+  gap: var(--e5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-content: start;
+}
+
+.benefices__secondaires li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--e3);
+  align-items: start;
+}
+
+.benefices__secondaires .icone {
+  margin-top: 0.28rem;
+  color: var(--vert);
+}
+
+.benefices__secondaires span {
+  color: var(--encre-douce);
+  max-width: 52ch;
+}
+
+.benefices__secondaires strong {
+  display: block;
+  color: var(--encre);
+  font-weight: 600;
+}
+
+@media (min-width: 62rem) {
+  .benefices {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--e8);
+  }
+
+  .benefice {
+    grid-template-columns: minmax(7rem, 0.55fr) minmax(0, 1.45fr);
+    column-gap: var(--e5);
+    align-items: baseline;
+  }
+
+  .benefice__valeur {
+    grid-row: 1 / span 2;
+  }
+}
+
+/* --- 18.3  Maquette de téléphone : un appareil, les deux canaux ----------- */
+/* La coque est dessinee en CSS, l'ecran contient l'application et la
+   notification SMS qui passe par-dessus. C'est le meme telephone qui montre
+   les deux canaux, ce qui evite de dessiner deux objets sans lien. */
+
+.telephone {
+  display: flex;
+  justify-content: center;
+}
+
+.telephone__coque {
+  position: relative;
+  width: min(100%, 17.5rem);
+  padding: 1.5rem 0.5rem 0.75rem;
+  border: 1.5px solid var(--encre);
+  border-radius: calc(var(--rayon) * 3.4);
+  background: var(--blanc);
+}
+
+/* L'encoche de la camera, en haut de l'ecran. */
+.telephone__encoche {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  width: 5.5rem;
+  height: 1.125rem;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--encre);
+}
+
+.telephone__ecran {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e3);
+  /* L'overflow masque la notification qui entre par le haut de l'ecran. */
+  overflow: hidden;
+  padding: var(--e3);
+  border-radius: calc(var(--rayon) * 2);
+  background: var(--creme);
+}
+
+.telephone__barre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e2);
+  padding-inline: 0.125rem;
+  font-size: 0.6875rem;
+  color: var(--encre);
+  font-variant-numeric: tabular-nums;
+}
+
+.telephone__heure {
+  font-weight: 600;
+}
+
+.telephone__indicateurs {
+  color: var(--encre-douce);
+  flex: 0 0 auto;
+}
+
+/* Notification SMS, en carte blanche posee sur l'ecran. */
+.telephone__notif {
+  display: flex;
+  gap: var(--e2);
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--filet);
+  border-radius: calc(var(--rayon) * 1.5);
+  background: var(--blanc);
+}
+
+.telephone__notif-puce {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--rayon);
+  background: var(--vert);
+  color: var(--creme);
+  font-family: var(--police-titre);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.telephone__notif-corps {
+  display: grid;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.telephone__notif-tete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e2);
+  font-size: 0.6875rem;
+}
+
+.telephone__notif-expediteur {
+  font-weight: 700;
+  color: var(--encre);
+}
+
+.telephone__notif-heure {
+  color: var(--encre-douce);
+  font-variant-numeric: tabular-nums;
+}
+
+.telephone__notif-texte {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--encre);
+}
+
+.telephone__app {
+  display: grid;
+  gap: var(--e2);
+}
+
+.telephone__pied {
+  justify-content: center;
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--encre-douce);
+}
+
+/* La barre d'accueil, en bas de l'ecran, comme sur un vrai telephone. */
+.telephone__accueil {
+  display: block;
+  width: 4.5rem;
+  height: 0.25rem;
+  margin: 0.625rem auto 0;
+  border-radius: 999px;
+  background: var(--filet);
+}
+
+.carte-alerte {
+  display: grid;
+  gap: var(--e2);
+  padding: var(--e3);
+  background: var(--blanc);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+}
+
+.carte-alerte__titre {
+  font-family: var(--police-titre);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--vert);
+}
+
+.carte-alerte__lieu {
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+.carte-alerte__courbe {
+  width: 100%;
+  height: auto;
+}
+
+.carte-alerte__valeur {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.carte-alerte__conseil {
+  font-size: var(--fz-petit);
+  line-height: 1.5;
+  color: var(--encre-douce);
+}
+
+.sms__note {
+  margin-top: var(--e4);
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+/* --- 18.4  Frise d'allocation des fonds ---------------------------------- */
+
+.frise {
+  display: grid;
+  gap: 0;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--filet-sombre);
+}
+
+.phase {
+  display: grid;
+  gap: var(--e2);
+  padding-block: var(--e5);
+  border-bottom: 1px solid var(--filet-sombre);
+}
+
+.phase__part {
+  font-family: var(--police-titre);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--vert-clair);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.phase__titre {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.phase__corps {
+  max-width: 34ch;
+  font-size: var(--fz-petit);
+  line-height: 1.65;
+  color: var(--texte-clair-doux);
+}
+
+@media (min-width: 40rem) {
+  .frise {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--e6);
+  }
+}
+
+@media (min-width: 75rem) {
+  .frise {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .phase {
+    grid-template-rows: auto auto 1fr;
+  }
+}
+
+/* --- 18.5  Données investisseurs : tableau et résultats ------------------- */
+
+.investisseurs__donnees {
+  display: grid;
+  gap: var(--e7);
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+/* .tableau-enveloppe est deja definie en section 03, a l'identique. */
+.tableau {
+  width: 100%;
+  min-width: 30rem;
+  border-collapse: collapse;
+  font-size: var(--fz-petit);
+}
+
+.tableau caption {
+  padding-bottom: var(--e3);
+  font-family: var(--police-titre);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--texte-clair);
+}
+
+.tableau th,
+.tableau td {
+  padding: var(--e3) var(--e3) var(--e3) 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--filet-sombre);
+}
+
+.tableau thead th {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texte-clair-doux);
+  border-bottom-color: var(--vert-clair);
+}
+
+.tableau tbody th {
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.tableau td {
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--texte-clair-doux);
+}
+
+.resultats {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--filet-sombre);
+}
+
+.resultat {
+  display: grid;
+  gap: var(--e1);
+  padding-block: var(--e4);
+  border-bottom: 1px solid var(--filet-sombre);
+}
+
+.resultat__intitule {
+  font-size: var(--fz-petit);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texte-clair-doux);
+}
+
+.resultat__valeur {
+  margin: 0;
+  font-family: var(--police-titre);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--vert-clair);
+}
+
+.resultat__note {
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--texte-clair-doux);
+  max-width: 46ch;
+}
+
+@media (min-width: 62rem) {
+  .investisseurs__donnees {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: var(--e8);
+    align-items: start;
+  }
+}
+
+/* --- 18.6  Économie d'un abonné ------------------------------------------ */
+
+.investisseurs__unite {
+  display: grid;
+  gap: var(--e5);
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: var(--e6);
+  border-top: 1px solid var(--filet-sombre);
+}
+
+.investisseurs__unite-titre {
+  font-family: var(--police-titre);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--texte-clair);
+}
+
+.investisseurs__unite-corps {
+  margin-top: var(--e2);
+  max-width: 44ch;
+  font-size: var(--fz-petit);
+  line-height: 1.65;
+  color: var(--texte-clair-doux);
+}
+
+.unite-lignes {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--filet-sombre);
+}
+
+.unite-ligne {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e2) var(--e4);
+  justify-content: space-between;
+  padding-block: var(--e3);
+  border-bottom: 1px solid var(--filet-sombre);
+  font-size: var(--fz-petit);
+  color: var(--texte-clair-doux);
+}
+
+.unite-ligne__intitule {
+  max-width: 34ch;
+}
+
+.unite-ligne__valeur {
+  font-family: var(--police-titre);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--vert-clair);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@media (min-width: 48rem) {
+  .investisseurs__unite {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    column-gap: var(--e7);
+    align-items: start;
+  }
+}
+
+/* --- 18.7  Appel à l'action investisseurs -------------------------------- */
+
+.investisseurs__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e4);
+  align-items: start;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding: var(--e6) 0;
+  border-top: 1px solid var(--filet-sombre);
+  border-bottom: 1px solid var(--filet-sombre);
+}
+
+.investisseurs__contact-texte {
+  max-width: 46ch;
+  color: var(--texte-clair);
+}
+
+@media (min-width: 62rem) {
+  .investisseurs__contact {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--e7);
+  }
+
+  .investisseurs__contact .bouton {
+    flex: none;
+  }
+}
+
+.avertissement {
+  margin-top: var(--e6);
+  font-size: var(--fz-petit);
+  line-height: 1.65;
+  color: var(--texte-clair-doux);
+  max-width: 70ch;
+}
+
+.avertissement strong {
+  color: var(--terracotta-clair);
+}
+
+/* --- 18.8  Note sous les témoignages ------------------------------------- */
+
+.note-temoignages {
+  margin-top: var(--e6);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--filet);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+  max-width: 60ch;
+}
+
+/* --- 18.9  Équipe : portraits dessinés, pas de photos -------------------- */
+
+.equipe {
+  display: grid;
+  gap: var(--e7);
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  margin-inline: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.membre__portrait {
+  width: 100%;
+  max-width: 9.5rem;
+  aspect-ratio: 1;
+  margin-bottom: var(--e4);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  overflow: hidden;
+}
+
+.membre__portrait svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.membre__nom {
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.membre__role {
+  margin-top: var(--e1);
+  font-size: var(--fz-petit);
+  color: var(--terracotta-encre);
+  font-weight: 600;
+}
+
+.membre__bio {
+  margin-top: var(--e3);
+  font-size: 0.9688rem;
+  line-height: 1.65;
+  color: var(--encre-douce);
+  max-width: 40ch;
+}
+
+.recrutement {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: var(--e5);
+  border-top: 1px solid var(--filet);
+  font-size: 0.9688rem;
+  color: var(--encre-douce);
+  max-width: 62ch;
+}
+
+.recrutement a {
+  color: var(--vert);
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  .equipe {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--e6);
+  }
+}
+
+@media (min-width: 75rem) {
+  .equipe {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--e7);
+  }
+}
+
+/* --- 18.10  Économie d'un bouton : la façade vidéo --------------------- */
+
+.video__motif {
+  position: absolute;
+  inset: 0;
+}
+
+.video__motif svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video__cadre .icone--grand {
+  color: var(--creme);
+}
+
+@media (min-width: 62rem) {
+  .video {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    column-gap: var(--e7);
+    align-items: center;
+  }
+}
+
+/* --- 18.11  Formulaire : retours d'erreur et récapitulatif --------------- */
+
+.formulaire__retour {
+  margin-top: var(--e5);
+  padding: var(--e5);
+  border: 1px solid var(--vert);
+  border-radius: var(--rayon);
+  background: var(--blanc);
+}
+
+.formulaire__retour-titre {
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--vert);
+  margin-bottom: var(--e2);
+}
+
+.formulaire__retour p {
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+}
+
+.formulaire__retour .bouton {
+  margin-top: var(--e3);
+}
+
+.info-bloc--reseaux .lien-reseau {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e2);
+  min-height: 2.75rem;
+  margin-right: var(--e4);
+  font-weight: 600;
+  color: var(--vert);
+}
+
+.info-bloc--reseaux .lien-reseau:hover {
+  color: var(--terracotta-encre);
+}
+
+/* --- 18.11  Variantes de titres sur fond sombre ---------------------------
+   La section investisseurs est sombre : les titres et le chapeau y passent en
+   clair explicitement, sinon ils héritent de l'encre du document. */
+.section--sombre .section__titre,
+.section__titre--clair {
+  color: var(--texte-clair);
+}
+
+.surtitre--clair {
+  color: var(--vert-clair);
+}
+
+.chapeau--clair {
+  color: var(--texte-clair-doux);
+}
+
+/* --- 18.12  Formulaire : radios, aides, mention -------------------------- */
+
+.formulaire-enveloppe {
+  container-type: inline-size;
+}
+
+/* Les deux profils sont des boutons radio débordants, pas des pastilles :
+   le libellé entier est la zone cliquable. */
+.formulaire__type {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e2) var(--e5);
+  margin-bottom: var(--e5);
+  padding-bottom: var(--e5);
+  border-bottom: 1px solid var(--filet);
+}
+
+.formulaire__legende {
+  font-size: var(--fz-surtitre);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+
+.choix {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.choix input {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: var(--vert);
+  flex: none;
+}
+
+.choix:has(input:checked) {
+  border-color: var(--vert);
+  background: var(--blanc);
+  color: var(--vert);
+  font-weight: 600;
+}
+
+.choix:has(input:focus-visible) {
+  outline: 2px solid var(--vert);
+  outline-offset: 2px;
+}
+
+.champ__optionnel {
+  font-weight: 400;
+  color: var(--encre-douce);
+}
+
+.champ__aide {
+  font-size: var(--fz-petit);
+  line-height: 1.55;
+  color: var(--encre-douce);
+  max-width: 46ch;
+}
+
+.champ [aria-invalid="true"] {
+  border-color: var(--terracotta-encre);
+}
+
+.champ [aria-invalid="true"]:focus {
+  outline-color: var(--terracotta-encre);
+}
+
+.champ__erreur {
+  font-size: var(--fz-petit);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--terracotta-encre);
+}
+
+.champ__erreur[hidden] {
+  display: none;
+}
+
+.formulaire__envoi {
+  margin-top: var(--e2);
+}
+
+.formulaire__mention {
+  margin-top: var(--e4);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--filet);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre-douce);
+  max-width: 48ch;
+}
+
+/* --- 18.13  Coordonnées à côté du formulaire ------------------------------ */
+
+.contact__infos {
+  display: grid;
+  gap: var(--e5);
+  align-content: start;
+}
+
+.info-bloc {
+  padding-bottom: var(--e4);
+  border-bottom: 1px solid var(--filet);
+}
+
+.info-bloc__titre {
+  display: flex;
+  align-items: center;
+  gap: var(--e2);
+  margin-bottom: var(--e2);
+  font-family: var(--police-titre);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.info-bloc__titre .icone {
+  color: var(--terracotta-encre);
+}
+
+.info-bloc p {
+  font-size: 0.9688rem;
+  line-height: 1.65;
+  color: var(--encre-douce);
+}
+
+.info-bloc a {
+  color: var(--vert);
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+}
+
+.info-bloc a:hover {
+  color: var(--terracotta-encre);
+}
+
+.info-bloc--reseaux {
+  border-bottom: 0;
+}
+
+/* --- 18.14  Colonne de faits et ce que le capteur ne fait pas ----------- */
+
+.capteur__faits {
+  align-content: start;
+}
+
+@media (min-width: 40rem) {
+  .contact {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    column-gap: var(--e7);
+    align-items: start;
+  }
+}
+
+/* --- 18.15  Pied de page ------------------------------------------------- */
+
+/* La baseline, le telephone et la liste de liens sont des styles plus haut,
+   au sein de la grille du pied de page. Seules les lignes du bas restent ici. */
+
+.pied__copyright {
+  font-size: var(--fz-petit);
+  color: var(--texte-clair-doux);
+}
+
+.pied__legaux {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e2) var(--e5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pied__legaux a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: var(--fz-petit);
+  color: var(--texte-clair-doux);
+}
+
+.pied__legaux a:hover {
+  color: var(--creme);
+}
+
+/* --- 18.16  Texte de la vidéo, et message si la vidéo manque ------------- */
+
+.video__texte p {
+  margin-top: var(--e4);
+  max-width: 46ch;
+  color: var(--encre-douce);
+}
+
+.video__texte p:first-child {
+  margin-top: 0;
+  color: var(--encre);
+}
+
+.video__texte a {
+  color: var(--vert);
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+}
+
+.video__texte a:hover {
+  color: var(--terracotta-encre);
+}
+
+.video__note {
+  padding-top: var(--e4);
+  border-top: 1px solid var(--filet);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+}
+
+.video__introuvable {
+  margin-top: var(--e4);
+  padding: var(--e4);
+  border: 1px solid var(--terracotta);
+  border-radius: var(--rayon);
+  font-size: var(--fz-petit);
+  line-height: 1.6;
+  color: var(--encre);
+  background: var(--blanc);
+}
+
+
+/* ==========================================================================
+   19  Mouvement — les illustrations du capteur en mouvement
+   ----------------------------------------------------------------------------
+   Le principe : montrer que la mesure est vivante. Une zone qui balaie, une
+   courbe qui se trace, une impulsion qui descend la tige, de l'eau qui
+   circule. Rien de decoratif, rien qui ne corresponde pas a ce que fait
+   reellement un capteur.
+
+   Trois contraintes tenues partout :
+   - uniquement transform, opacity et stroke-dashoffset, donc le rendu reste
+     sur le compositeur et ne provoque ni reflow ni recalcul de peinture ;
+   - tout est dans « no-preference » : avec le mouvement reduit, la page
+     montre exactement les memes dessins, immobiles ;
+   - les sequences qui se jouent au defilement ne se lancent qu'une fois, via
+     la classe .anime-depart posee par le script, et leur etat final est
+     identique a l'etat de depart. Sans script, rien ne manque.
+
+   Les etats de repos sont ecrits dans la regle de base, jamais dans
+   « from » : une image de cle qui oublie 100% laisse l'element fige dans
+   l'etat d'arrivee si l'animation est interrompue.
+   ========================================================================== */
+
+/* --- Etats de repos ------------------------------------------------------- */
+
+/* L'anneau d'impulsion n'existe que pendant qu'il bat. Hors animation il est
+   invisible : garde tel quel sous mouvement reduit, ou il doublerait la
+   zone en pointilles sans rien ajouter. */
+.impulsion {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.canal__courant {
+  stroke-dasharray: 18 18;
+}
+
+.trace,
+.racine {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* La tete de lecture est invisible dans le HTML, et le reste. */
+.descente {
+  opacity: 0;
+}
+
+[data-anime="alerte"] .seuil {
+  opacity: 0.55;
+  transition: opacity var(--transition);
+}
+
+/* La barre de repartition, une par phase, a l'echelle de la levee. */
+.phase__part {
+  position: relative;
+}
+
+.phase__part::after {
+  content: "";
+  display: block;
+  height: 3px;
+  margin-top: 0.6rem;
+  background: var(--vert-clair);
+  transform: scaleX(var(--part, 0));
+  transform-origin: left center;
+}
+
+.phase:nth-child(1) .phase__part::after { --part: 0.45; }
+.phase:nth-child(2) .phase__part::after { --part: 0.25; }
+.phase:nth-child(3) .phase__part::after { --part: 0.2; }
+.phase:nth-child(4) .phase__part::after { --part: 0.1; }
+
+/* --- Images cle ----------------------------------------------------------- */
+
+@keyframes agro-emission {
+  0%   { stroke-dashoffset: 1; opacity: 0; }
+  12%  { opacity: 0.9; }
+  42%  { stroke-dashoffset: 0; opacity: 0.9; }
+  72%  { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes agro-balanage {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes agro-impulsion {
+  0%   { transform: scale(0.5); opacity: 0.5; }
+  75%  { opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+@keyframes agro-trace {
+  0%   { stroke-dashoffset: 1; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes agro-courant {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -36; }
+}
+
+@keyframes agro-respiration {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+@keyframes agro-descente {
+  0%   { opacity: 0; transform: translateY(0); }
+  18%  { opacity: 0.95; }
+  74%  { opacity: 0.95; }
+  100% { opacity: 0; transform: translateY(76px); }
+}
+
+@keyframes agro-apparition {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes agro-barre {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(var(--part, 0)); }
+}
+
+@keyframes agro-point {
+  0%   { opacity: 0; transform: scale(0.4); }
+  70%  { opacity: 1; transform: scale(1.18); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- Sequence SMS ----------------------------------------------------------- */
+
+/* La notification arrive par le haut de l'ecran et se pose. Le depassement
+   de 8% a mi-parcours donne l'elasticite d'un systeme d'exploitation, sans
+   rebond previsible qui ferait jeu. */
+@keyframes agro-notif {
+  0%   { opacity: 0; transform: translateY(-140%); }
+  55%  { opacity: 1; transform: translateY(8%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* La vibration d'un telephone qui recoit un SMS : trois oscillations courtes,
+   amorties, et c'est tout. Une vibration plus longue agacerait. */
+@keyframes agro-vibration {
+  0%, 100% { transform: translateX(0); }
+  12%      { transform: translateX(-4px); }
+  26%      { transform: translateX(4px); }
+  40%      { transform: translateX(-3px); }
+  54%      { transform: translateX(3px); }
+  70%      { transform: translateX(-1.5px); }
+  85%      { transform: translateX(1px); }
+}
+
+/* L'ecran s'allume avant que la notification n'arrive. */
+@keyframes agro-allumage {
+  0%   { opacity: 0.45; }
+  100% { opacity: 1; }
+}
+
+/* --- Boucles d'ambiance ---------------------------------------------------- */
+/* Lentes sur dessein. Une lecture en parallele d'une animation rapide est
+   Impossible : le mouvement doit se voir sans qu'on ait a le remarquer. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Le canal d'eau du hero : un courant continu, 36 unites de course pour un
+     motif de 36, donc la boucle est invisible. */
+  .canal__courant {
+    animation: agro-courant 3.6s linear infinite;
+  }
+
+  /* Les trois arcs partent l'un apres l'autre : une mesure qui s'emitte. */
+  .arc {
+    stroke-dasharray: 1;
+    opacity: 0;
+  }
+
+  .arc--1 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) infinite; }
+  .arc--2 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) 0.45s infinite; }
+  .arc--3 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) 0.9s infinite; }
+
+  .hero__visuel .impulsion {
+    animation: agro-impulsion 3.4s cubic-bezier(0.2, 0, 0.2, 1) 1.15s infinite;
+  }
+
+  /* La zone de mesure balaie. Un cercle en pointilles qui tourne se lit
+     comme un balayage, ce qu'il est. */
+  .zone {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: agro-balanage 18s linear infinite;
+  }
+
+  .etape__visuel .impulsion {
+    animation: agro-impulsion 4.2s cubic-bezier(0.2, 0, 0.2, 1) infinite;
+  }
+
+  .capteur__schema .impulsion {
+    animation: agro-impulsion 4.2s cubic-bezier(0.2, 0, 0.2, 1) 2.1s infinite;
+  }
+
+  /* La zone humide respire, lentement, comme une reserve qui se vide. */
+  .zone-humide {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: agro-respiration 6.5s ease-in-out infinite;
+  }
+}
+
+/* --- Sequences au defilement ----------------------------------------------- */
+/* L'etat de repos est deja correct : si le script manque, si l'observateur
+   echoue, ou si le mouvement est reduit, la page est complete. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  [data-anime="alerte"].anime-depart .carte-alerte {
+    animation: agro-apparition 520ms cubic-bezier(0.2, 0, 0.2, 1) both;
+  }
+
+  [data-anime="alerte"].anime-depart .trace {
+    animation: agro-trace 1150ms cubic-bezier(0.4, 0, 0.3, 1) 420ms both;
+  }
+
+  [data-anime="alerte"].anime-depart .pointe {
+    animation: agro-point 320ms cubic-bezier(0.2, 0, 0.2, 1) 1480ms both;
+  }
+
+  [data-anime="alerte"].anime-depart .seuil {
+    animation: agro-apparition 400ms ease-out 180ms both;
+  }
+
+  /* L'alerte SMS : l'ecran s'allume, la notification entre par le haut, et
+     l'appareil vibre une fois. Le tout joue une seule fois a l'arrivee dans
+     le viewport, et se rejoue au survol. */
+  [data-anime="alerte"].anime-depart .telephone__ecran {
+    animation: agro-allumage 760ms ease-out 200ms both;
+  }
+
+  [data-anime="alerte"].anime-depart .telephone__notif {
+    animation: agro-notif 640ms cubic-bezier(0.22, 1.15, 0.36, 1) 320ms both;
+  }
+
+  [data-anime="alerte"].anime-depart .telephone__coque {
+    animation: agro-vibration 540ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 320ms both;
+  }
+
+  /* L'eau descend jusqu'a la zone, puis les racines courent la rejoindre. */
+  [data-anime="infiltration"].anime-depart .zone-humide {
+    animation: agro-point 760ms cubic-bezier(0.2, 0, 0.2, 1) 120ms both;
+  }
+
+  [data-anime="infiltration"].anime-depart .racine {
+    animation: agro-trace 720ms cubic-bezier(0.4, 0, 0.3, 1) both;
+  }
+
+  [data-anime="infiltration"].anime-depart .racine:nth-child(3) {
+    animation-delay: 220ms;
+  }
+
+  [data-anime="infiltration"].anime-depart .feuille {
+    animation: agro-respiration 3.4s ease-in-out 900ms infinite;
+  }
+
+  /* L'impulsion parcourt la tige, du boîtier vers la zone de mesure. */
+  [data-anime="schema"].anime-depart .descente {
+    animation: agro-descente 2.6s cubic-bezier(0.4, 0, 0.3, 1) 300ms infinite;
+  }
+
+  [data-anime="frise"].anime-depart .phase__part::after {
+    animation: agro-barre 900ms cubic-bezier(0.2, 0, 0.2, 1) both;
+  }
+
+  [data-anime="frise"].anime-depart .phase:nth-child(2) .phase__part::after { animation-delay: 120ms; }
+  [data-anime="frise"].anime-depart .phase:nth-child(3) .phase__part::after { animation-delay: 240ms; }
+  [data-anime="frise"].anime-depart .phase:nth-child(4) .phase__part::after { animation-delay: 360ms; }
+}
+
+/* --- Interaction ----------------------------------------------------------- */
+/* Survoler une illustration, c'est deja dire qu'on s'y interesse : la figure
+   repond. Au clavier, focus-within joue le meme role, et les elements
+   visibles au focus sont atteignables sans changer le markup. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Au survol du hero, la transmission s'accentue et l'eau circule plus vite. */
+  .hero__visuel:hover .arc,
+  .hero__visuel:focus-within .arc {
+    stroke-width: 3.5;
+  }
+
+  .hero__visuel:hover .canal__courant,
+  .hero__visuel:focus-within .canal__courant {
+    animation-duration: 1.6s;
+  }
+
+  /* Le bouton de lecture respire au repos, puis s'ouvre au survol. C'est
+     l'appel le plus cher de la page : il doit se voir sans crier. */
+  .video__bouton {
+    transform-box: fill-box;
+    animation: agro-respiration 4.2s ease-in-out infinite;
+  }
+
+  /* Les arcs de la facade video reprennent le meme langage que le hero : la
+     scene montre le capteur, elle emet aussi. */
+  .video__cadre:hover .arc,
+  .video__cadre:focus-visible .arc {
+    animation: agro-emission 1.5s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  }
+
+  .video__cadre:hover .arc--3,
+  .video__cadre:focus-visible .arc--3 {
+    animation-delay: 0.25s;
+  }
+
+  .video__cadre:hover .video__bouton,
+  .video__cadre:focus-visible .video__bouton {
+    animation: none;
+    transform: scale(1.08);
+    transition: transform var(--transition);
+  }
+
+  .etape__visuel:hover .zone,
+  .capteur__schema:hover .zone {
+    animation-duration: 6s;
+  }
+
+  /* Rejouer la courbe au survol : c'est le geste que l'on fait quand on veut
+     relire une mesure. */
+  [data-anime="alerte"]:hover .trace,
+  [data-anime="alerte"]:focus-within .trace {
+    animation: agro-trace 1000ms cubic-bezier(0.4, 0, 0.3, 1);
+  }
+
+  [data-anime="alerte"]:hover .seuil,
+  [data-anime="alerte"]:focus-within .seuil {
+    opacity: 1;
+  }
+
+  /* Survoler la maquette fait sonar le telephone une seconde fois : on
+     revoit exactement ce que le producteur voit quand l'alerte tombe. */
+  [data-anime="alerte"]:hover .telephone__notif,
+  [data-anime="alerte"]:focus-within .telephone__notif {
+    animation: agro-notif 640ms cubic-bezier(0.22, 1.15, 0.36, 1) both;
+  }
+
+  [data-anime="alerte"]:hover .telephone__coque,
+  [data-anime="alerte"]:focus-within .telephone__coque {
+    animation: agro-vibration 540ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 120ms both;
+  }
+
+  [data-anime="infiltration"]:hover .zone-humide {
+    animation-duration: 2.4s;
+  }
+
+  [data-anime="schema"]:hover .descente {
+    animation-duration: 1.4s;
+  }
+}
+
+/* ==========================================================================
+   20  Impressions — mise en page de secours pour l'impression papier,
+   volontairement sommaire : envoi d'un devis ou d'un dossier imprime.
+   ========================================================================== */
+
+@media print {
+  .entete,
+  .pied,
+  .video,
+  .nav-panneau,
+  .aller-contenu,
+  .formulaire {
+    display: none;
+  }
+
+  /* L'impression est en noir sur blanc : on ne force pas la couleur de marque,
+     sinon le texte disparaît. */
+  body {
+    background: var(--blanc);
+    color: var(--encre);
+    font-size: 11pt;
+  }
+
+  .section {
+    padding-block: 1.5rem;
+    break-inside: avoid;
+  }
+
+  .section--creme,
+  .section--sombre {
+    background: var(--blanc);
+    color: var(--encre);
+  }
+
+  .section--sombre * {
+    color: var(--encre) !important;
+  }
+
+  .hypothese,
+  .avertissement {
+    border: 1px solid #999;
+  }
+
+  /* Les URL ne sont pas gravees apres chaque lien : la page en contient
+     beaucoup, et cela rendrait le document illisible. */
+  .pied a::after,
+  a[href^="http"]::after,
+  a[href^="tel"]::after,
+  a[href^="mailto"]::after {
+    content: none;
+  }
+}

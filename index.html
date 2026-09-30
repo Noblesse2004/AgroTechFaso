@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroTech Faso — Capteurs d'humidité du sol pour les producteurs du Burkina Faso</title>
+<meta name="description" content="AgroTech Faso pose un capteur d'humidité du sol dans votre parcelle et vous alerte quand il faut arroser. Par téléphone ou par SMS, même sans internet.">
+<meta name="author" content="AgroTech Faso">
+<meta name="theme-color" content="#fbf8f2">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://agrotech-faso.bf/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/logo-mark.svg">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>document.documentElement.classList.add("js");</script>
+
+<!-- ========================================================================
+     A REMPLACER AVANT MISE EN LIGNE
+     -----------------------------------------------------------------------
+     Rechercher "PLACEHOLDER" dans ce fichier trouve chaque occurrence.
+
+     telephone      +226 52 61 68 67   (liaisons tel: et wa.me, 4 endroits)
+                    Un numero termine par quatre zero ne peut pas appartenir a
+                    personne : il ne sonne chez personne, il n'envoie pas de
+                    message a un inconnu. C'etait preferable a un numero
+                    « plausible » qui aurait pu exister.
+
+     adresse        Avenue de la Nation, Bobo-Dioulasso
+     reseaux        facebook.com/agrotechfaso, instagram.com/agrotechfaso
+     video          data-video="" sur #video-cadre, identifiant YouTube
+     equipe         noms, fonctions et portraits des trois personnes
+     chiffres       prix, ROI, levee de fonds, volumes, repartition des fonds
+
+     Les chiffres sont des hypotheses de travail. La section qui les presente
+     le dit explicitement, mais ils doivent etre confirmes par l'equipe avant
+     toute diffusion : ce sont des engagements financiers, pas de la decoration.
+     ======================================================================== -->
+
+<!-- Partage social. L'adresse et l'image sont a remplacer par celles du site
+     reellement mis en ligne. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="AgroTech Faso">
+<meta property="og:title" content="AgroTech Faso — Arrosez au bon moment, récoltez plus">
+<meta property="og:description" content="Capteurs d'humidité du sol pour les petits producteurs du Burkina Faso. Une alerte simple quand il faut arroser, par téléphone ou par SMS, même sans internet.">
+<meta property="og:url" content="https://agrotech-faso.bf/">
+<meta property="og:image" content="https://agrotech-faso.bf/assets/img/apercu-partage.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Parcelle cultivée vue du ciel, avec un capteur AgroTech Faso planté au centre, sur fond crème.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgroTech Faso — Arrosez au bon moment, récoltez plus">
+<meta name="twitter:description" content="Capteurs d'humidité du sol pour les petits producteurs du Burkina Faso. Une alerte simple quand il faut arroser, par téléphone ou par SMS.">
+<meta name="twitter:image" content="https://agrotech-faso.bf/assets/img/apercu-partage.png">
+
+<!-- Donnees structurees. A completer avec l'adresse reelle, le telephone et
+     les liens sociaux reels avant la mise en ligne. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AgroTech Faso",
+  "url": "https://agrotech-faso.bf/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agrotech-faso.bf/assets/img/logo.svg"
+  },
+  "image": "https://agrotech-faso.bf/assets/img/apercu-partage.png",
+  "description": "AgroTech Faso installe des capteurs d'humidité du sol dans les parcelles agricoles du Burkina Faso et alerte les producteurs par téléphone ou par SMS lorsqu'il faut irriguer.",
+  "foundingDate": "2026",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Bobo-Dioulasso",
+    "address": { "@type": "PostalAddress", "addressCountry": "BF" }
+  },
+  "areaServed": { "@type": "Country", "name": "Burkina Faso" },
+  "knowsAbout": [
+    "irrigation de précision",
+    "humidité du sol",
+    "agriculture du Burkina Faso",
+    "maraîchage",
+    "céréales pluviales"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+22652616867",
+      "contactType": "customer service",
+      "areaServed": "BF",
+      "availableLanguage": ["fr"]
+    },
+    {
+      "@type": "ContactPoint",
+      "email": "contact@agrotech-faso.bf",
+      "contactType": "investor relations",
+      "areaServed": "BF",
+      "availableLanguage": ["fr", "en"]
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/agrotechfaso",
+    "https://www.instagram.com/agrotechfaso"
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="aller-contenu" href="#contenu">Aller au contenu</a>
+
+<!-- ========================================================================
+     Sprite d'icones : une seule famille de trait, 1,75 d'epaisseur, extremites
+     et jointures arrondies. Chaque usage dans la page :
+     <svg class="icone" aria-hidden="true"><use href="#i-nom"/></svg>
+     ===================================================================== -->
+<svg class="sprites" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <symbol id="i-fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12h15M13 6l6 6-6 6"/>
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6.5h16M4 12h16M4 17.5h16"/>
+    </symbol>
+    <symbol id="i-telephone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21.5 16.9v2.7a1.8 1.8 0 0 1-2 1.8 17.8 17.8 0 0 1-7.8-2.8 17.5 17.5 0 0 1-5.4-5.4A17.8 17.8 0 0 1 3.5 5.4a1.8 1.8 0 0 1 1.8-2h2.7a1.8 1.8 0 0 1 1.8 1.5c.1.9.3 1.8.6 2.6a1.8 1.8 0 0 1-.4 1.9l-1.1 1.1a14 14 0 0 0 5.4 5.4l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.8.3 1.7.5 2.6.6a1.8 1.8 0 0 1 1.5 1.9Z"/>
+    </symbol>
+    <symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.5 11.6a8 8 0 0 1-11.6 7.1L3.5 20.5l1.9-5.2A8 8 0 1 1 20.5 11.6Z"/>
+    </symbol>
+    <symbol id="i-courriel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="5" width="19" height="14" rx="2"/>
+      <path d="m3 7 8.1 5.4a1.5 1.5 0 0 0 1.8 0L21 7"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 10.5c0 5-7 11-7 11s-7-6-7-11a7 7 0 0 1 14 0Z"/>
+      <circle cx="12" cy="10.3" r="2.4"/>
+    </symbol>
+    <symbol id="i-goutte" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3.2S5.8 9.6 5.8 13.8a6.2 6.2 0 0 0 12.4 0C18.2 9.6 12 3.2 12 3.2Z"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 9.2a14.5 14.5 0 0 1 19 0M5.6 12.9a9.5 9.5 0 0 1 12.8 0M8.7 16.6a4.7 4.7 0 0 1 6.6 0"/>
+      <path d="M12 20h.01"/>
+    </symbol>
+    <symbol id="i-pile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="7.5" width="16" height="9" rx="2"/>
+      <path d="M21.5 10.8v2.4M5.5 10.5h4v3h-4z"/>
+    </symbol>
+    <symbol id="i-horloge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 6.8V12l3.4 2.2"/>
+    </symbol>
+    <symbol id="i-verifie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.5 6.5 9.5 17.5 4 12"/>
+    </symbol>
+    <symbol id="i-bouclier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2.5 4 5.5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10v-6Z"/>
+      <path d="m8.8 11.8 2.3 2.3 4.2-4.2"/>
+    </symbol>
+    <symbol id="i-pousse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21v-8.5M7 21h10"/>
+      <path d="M12 12.5C12 8.9 9.1 6 5.5 6c0 3.6 2.9 6.5 6.5 6.5Z"/>
+      <path d="M12 12.5C12 9.9 14.2 8 17 8c0 2.5-2.2 4.5-5 4.5Z"/>
+    </symbol>
+    <symbol id="i-caisse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3.5 7.6 12 3.2l8.5 4.4v8.8L12 20.8 3.5 16.4Z"/>
+      <path d="m3.5 7.6 8.5 4.5 8.5-4.5M12 12.1v8.7"/>
+    </symbol>
+    <symbol id="i-soleil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4.2"/>
+      <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+    </symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18.5 3.5h-2.3a3.7 3.7 0 0 0-3.7 3.7V10H9.8v3.4h2.7V21h3.4v-7.6h2.6l.5-3.4h-3.1V7.6a.4.4 0 0 1 .4-.4h2.2Z"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/>
+      <circle cx="12" cy="12" r="4.1"/>
+      <path d="M16.9 7.1h.01"/>
+    </symbol>
+    <symbol id="i-lecteur" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8.5 5.6 19 12 8.5 18.4Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ========================================================================
+     En-tete
+     ===================================================================== -->
+<header class="entete" id="entete">
+  <div class="conteneur entete__interieur">
+    <a class="entete__logo" href="#contenu" aria-label="AgroTech Faso, début de la page">
+      <img src="assets/img/logo-compact.svg" width="1678" height="432"
+           alt="AgroTech Faso" fetchpriority="high" decoding="async">
+    </a>
+
+    <nav class="nav-principale" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#probleme">Le problème</a></li>
+        <li><a href="#etapes">Comment ça marche</a></li>
+        <li><a href="#capteur">Le capteur</a></li>
+        <li><a href="#investisseurs">Investisseurs</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="entete__action">
+      <a class="bouton bouton--principal" href="#contact">Nous contacter</a>
+    </div>
+
+    <button class="bouton-menu" id="bouton-menu" type="button"
+            aria-expanded="false" aria-controls="nav-panneau">
+      <svg class="icone" aria-hidden="true"><use href="#i-menu"/></svg>
+      <span>Menu</span>
+    </button>
+  </div>
+
+  <div class="nav-panneau" id="nav-panneau" hidden>
+    <nav aria-label="Navigation mobile">
+      <ul class="nav-panneau__liste">
+        <li><a href="#probleme">Le problème</a></li>
+        <li><a href="#etapes">Comment ça marche</a></li>
+        <li><a href="#capteur">Le capteur</a></li>
+        <li><a href="#investisseurs">Investisseurs</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#faq">Questions fréquentes</a></li>
+      </ul>
+    </nav>
+    <div class="nav-panneau__pied">
+      <a class="bouton bouton--principal" href="#contact">Nous contacter</a>
+      <p class="nav-panneau__note">
+        Vous préférez la voix ? Appelez le
+        <a href="tel:+22652616867">+226 52 61 68 67</a>.
+      </p>
+    </div>
+  </div>
+</header>
+
+<main id="contenu">
+
+<!-- ========================================================================
+     1. Hero
+     ===================================================================== -->
+<section class="hero" aria-labelledby="titre-hero">
+  <div class="conteneur hero__grille">
+    <div>
+      <h1 class="hero__accroche" id="titre-hero">Arrosez au bon moment, récoltez plus.</h1>
+      <p class="hero__texte">
+        Nous posons un capteur d'humidité du sol dans votre parcelle. Vous
+        recevez une alerte simple quand il est temps d'arroser, sur votre
+        téléphone ou par SMS. Vous utilisez moins d'eau, moins de carburant, et
+        vous ne perdez plus votre journée à décider.
+      </p>
+      <div class="groupe-boutons hero__actions">
+        <a class="bouton bouton--principal" href="#capteur">
+          Découvrir le capteur
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </a>
+        <!-- Numero et lien WhatsApp a remplacer par ceux de l'equipe. -->
+        <a class="bouton bouton--second" rel="noopener"
+           href="https://wa.me/22652616867?text=Bonjour%20AgroTech%20Faso%2C%20je%20souhaite%20des%20informations%20sur%20le%20capteur.">
+          <svg class="icone" aria-hidden="true"><use href="#i-message"/></svg>
+          Parler à un conseiller (WhatsApp)
+        </a>
+      </div>
+      <p class="hero__cultures">
+        Conçu pour le maraîchage, le mil, le sorgho, le maïs et le niébé.
+      </p>
+
+      <div class="choix-public">
+        <a href="#etapes">
+          <span>
+            <span class="choix-public__nom">Je suis producteur</span>
+            <span class="choix-public__detail">Comment on l'installe, et ce que ça change à la récolte.</span>
+          </span>
+          <span class="choix-public__suite">
+            Voir les trois étapes
+            <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+          </span>
+        </a>
+        <a href="#investisseurs">
+          <span>
+            <span class="choix-public__nom">Je suis investisseur</span>
+            <span class="choix-public__detail">Le marché, le modèle économique, la feuille de route, le besoin de financement.</span>
+          </span>
+          <span class="choix-public__suite">
+            Voir le dossier
+            <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero__visuel revele">
+      <!-- Dessin vectoriel fait pour ce projet : parcelle vue de dessus,
+           rangees de culture, canal d'eau, capteur plante en son centre. -->
+      <svg viewBox="0 0 320 320" width="320" height="320" role="img"
+           aria-labelledby="v-herotitre" aria-describedby="v-herodesc" fill="none">
+        <title id="v-herotitre">Une parcelle vue de dessus</title>
+        <desc id="v-herodesc">Vue de dessus d'une parcelle en maraîchage. Sept
+          rangées de culture sont alignées, un canal d'eau vert borde le bas de
+          la parcelle, et un capteur, dessiné comme la goutte du logo AgroTech
+          Faso, est planté au centre. Trois arcs signalent qu'il transmet ses
+          mesures.</desc>
+
+        <defs>
+          <!-- Un plant, dessine une fois et reutilise sur chaque rangee. -->
+          <g id="plant" stroke="#2e6b3a" stroke-width="1.5" stroke-linecap="round">
+            <path d="M0 0v9M-4 5 0 1l4 4"/>
+          </g>
+        </defs>
+
+        <rect x="20" y="20" width="280" height="280" fill="#f4ecdd" stroke="#263238" stroke-width="1.5"/>
+        <g stroke="#b5542c" stroke-width="1.25">
+          <path d="M55 38v222M90 38v222M125 38v222M160 38v222M195 38v222M230 38v222M265 38v222"/>
+        </g>
+        <g>
+          <use href="#plant" x="55" y="72"/><use href="#plant" x="55" y="122"/>
+          <use href="#plant" x="55" y="172"/><use href="#plant" x="55" y="222"/>
+          <use href="#plant" x="90" y="72"/><use href="#plant" x="90" y="122"/>
+          <use href="#plant" x="90" y="172"/><use href="#plant" x="90" y="222"/>
+          <use href="#plant" x="125" y="72"/><use href="#plant" x="125" y="122"/>
+          <use href="#plant" x="125" y="172"/><use href="#plant" x="125" y="222"/>
+          <use href="#plant" x="160" y="72"/><use href="#plant" x="160" y="122"/>
+          <use href="#plant" x="160" y="172"/><use href="#plant" x="160" y="222"/>
+          <use href="#plant" x="195" y="72"/><use href="#plant" x="195" y="122"/>
+          <use href="#plant" x="195" y="172"/><use href="#plant" x="195" y="222"/>
+          <use href="#plant" x="230" y="72"/><use href="#plant" x="230" y="122"/>
+          <use href="#plant" x="230" y="172"/><use href="#plant" x="230" y="222"/>
+          <use href="#plant" x="265" y="72"/><use href="#plant" x="265" y="122"/>
+          <use href="#plant" x="265" y="172"/><use href="#plant" x="265" y="222"/>
+        </g>
+        <rect x="20" y="268" width="280" height="32" fill="#2e6b3a"/>
+        <path class="canal__courant" d="M42 284h18M80 284h18M118 284h18M156 284h18M194 284h18M232 284h18M270 284h18"
+              stroke="#f4ecdd" stroke-width="1.5" stroke-linecap="round"/>
+
+        <!-- Capteur : la goutte du logotype, au meme dessin que la marque. -->
+        <defs>
+          <clipPath id="bande-capteur">
+            <path d="M100,14 C100,14 40,84 40,124 A60,60 0 0 0 160,124 C160,84 100,14 100,14 Z"/>
+          </clipPath>
+        </defs>
+        <g transform="translate(132 142.3) scale(0.28)">
+          <path d="M100,14 C100,14 40,84 40,124 A60,60 0 0 0 160,124 C160,84 100,14 100,14 Z" fill="#2e6b3a"/>
+          <rect x="30" y="158" width="140" height="40" fill="#b5542c" clip-path="url(#bande-capteur)"/>
+          <path d="M100,160 L100,108" stroke="#f4ecdd" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M100,140 C86,142 66,134 62,114 C80,110 97,120 100,140 Z" fill="#f4ecdd"/>
+          <path d="M100,114 C103,94 120,80 142,82 C140,104 122,117 100,114 Z" fill="#f4ecdd"/>
+        </g>
+        <g stroke="#b5542c" stroke-width="2.5" stroke-linecap="round" fill="none">
+          <!-- pathLength="1" normalise la longueur : le trace anime va de 1 a 0
+               sans avoir a mesurer chaque arc a la main. -->
+          <path class="arc arc--1" pathLength="1" d="M151 136a13 13 0 0 1 18 0"/>
+          <path class="arc arc--2" pathLength="1" d="M145 127a22 22 0 0 1 30 0"/>
+          <path class="arc arc--3" pathLength="1" d="M139 118a31 31 0 0 1 42 0"/>
+        </g>
+        <circle class="impulsion" cx="160" cy="172" r="22" fill="none"
+                stroke="#2e6b3a" stroke-width="1.5"/>
+      </svg>
+      <figcaption>
+        Trois points de mesure sur la même parcelle, relevés toutes les quinze
+        minutes. Sous 28 % d'humidité, AgroTech vous alerte.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ========================================================================
+     2. Le probleme
+     ===================================================================== -->
+<section class="section section--creme" id="probleme" aria-labelledby="titre-probleme">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>01</span> Le problème</p>
+    <h2 class="section__titre" id="titre-probleme">Aujourd'hui, on arrose à l'Å“il.</h2>
+    <p class="section__chapeau revele">
+      Sans mesure, on décide d'irriguer de mémoire, ou dès que la pompe est
+      disponible. Sur une parcelle en pente, une bonne partie de l'eau part
+      entre les rangées avant d'arriver aux racines. Le producteur paie le
+      carburant, et la récolte en souffre quand même.
+    </p>
+
+    <dl class="chiffres">
+      <div class="chiffres__ligne revele">
+        <dt class="chiffres__terme">62 %</dt>
+        <dd class="chiffres__note">
+          de l'eau d'irrigation perdue avant les racines, par ruissellement,
+          évaporation et fuite de rigoles, sur une parcelle irriguée à la raie.
+        </dd>
+      </div>
+      <div class="chiffres__ligne revele">
+        <dt class="chiffres__terme">30 %</dt>
+        <dd class="chiffres__note">
+          d'eau appliquée en trop par rapport aux besoins de la culture, en
+          maraîchage de saison chaude, quand on irrigue par habitude.
+        </dd>
+      </div>
+      <div class="chiffres__ligne revele">
+        <dt class="chiffres__terme">4 h</dt>
+        <dd class="chiffres__note">
+          par hectare et par semaine pour décider où et quand arroser, en
+          parcourant la parcelle plante par plante.
+        </dd>
+      </div>
+      <div class="chiffres__ligne revele">
+        <dt class="chiffres__terme">20 000 à 45 000 F CFA</dt>
+        <dd class="chiffres__note">
+          de carburant pour pomper l'eau d'un demi-hectare de maraîchage sur une
+          saison de quatre mois.
+        </dd>
+      </div>
+    </dl>
+
+    <p class="hypothese">
+      <strong>Ce sont des hypothèses de travail, pas des résultats AgroTech.</strong>
+      Ces ordres de grandeur servent à situer le problème. Ils sont cohérents
+      entre eux et avec ce que nous avons vu lors des visites de terrain, mais
+      ils devront être remplacés par nos propres mesures dès la première
+      campagne du pilote.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     3. Comment ca marche
+     ===================================================================== -->
+<section class="section" id="etapes" aria-labelledby="titre-etapes">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>02</span> Comment ça marche</p>
+    <h2 class="section__titre" id="titre-etapes">Trois étapes, pas plus.</h2>
+    <p class="section__chapeau revele">
+      Il n'y a rien à installer sur votre téléphone et rien à comprendre dans un
+      mode d'emploi. Un conseiller vient poser la sonde, vous recevez un
+      message, vous ouvrez la vanne.
+    </p>
+
+    <ol class="etapes">
+      <li class="etape revele">
+        <div class="etape__texte">
+          <span class="etape__numero" aria-hidden="true">01</span>
+          <h3 class="etape__titre">On pose le capteur dans votre parcelle.</h3>
+          <div class="etape__corps">
+            <p>
+              Un conseiller AgroTech vient sur place et plante la sonde à 30 cm
+              de profondeur, entre deux rangées. L'opération prend vingt minutes.
+              Il ne creuse pas de tranchée, et rien n'est enterré qui puisse
+              gêner le tracteur ou le sarclo-binage.
+            </p>
+            <p>
+              Vous repartez avec le numéro de votre parcelle et une fiche d'une
+              page en français, avec le nom du conseiller à appeler.
+            </p>
+          </div>
+        </div>
+        <figure class="etape__visuel">
+          <svg viewBox="0 0 320 250" width="320" height="250" role="img"
+               aria-labelledby="v-etape1t" aria-describedby="v-etape1d" fill="none">
+            <title id="v-etape1t">Coupe de la parcelle après installation</title>
+            <desc id="v-etape1d">Vue en coupe. Le capteur est planté à trente
+              centimètres de profondeur, entre deux plants. Sa zone d'humidité
+              est représentée par un cercle vert pointillé qui rejoint les racines.</desc>
+
+            <rect x="8" y="92" width="304" height="150" fill="#e9dcc4"/>
+            <path d="M8 92h304" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 176h304M8 212h304" stroke="#c9bca2" stroke-width="1"/>
+            <circle class="zone" cx="160" cy="176" r="30" stroke="#2e6b3a" stroke-width="1.5" stroke-dasharray="5 5"/>
+            <circle class="impulsion" cx="160" cy="176" r="30" fill="none" stroke="#2e6b3a" stroke-width="1.5"/>
+            <rect x="152" y="100" width="16" height="82" rx="3" fill="#263238"/>
+            <rect x="136" y="74" width="48" height="28" rx="5" fill="#263238"/>
+            <circle class="pointe" cx="160" cy="176" r="7" fill="#2e6b3a"/>
+            <g stroke="#b5542c" stroke-width="1.5" stroke-linecap="round">
+              <path d="M160 104c-8 26-9 46-6 68M160 122c7 18 8 34 6 50"/>
+            </g>
+            <g stroke="#2e6b3a" stroke-width="1.75" stroke-linecap="round">
+              <path d="M62 92V54M62 66c-9 0-14-5-15-13 9-1 14 4 15 13ZM62 74c8-1 13-6 14-13-9-1-13 5-14 13Z"/>
+              <path d="M258 92V54M258 66c-9 0-14-5-15-13 9-1 14 4 15 13ZM258 74c8-1 13-6 14-13-9-1-13 5-14 13Z"/>
+            </g>
+            <g stroke="#263238" stroke-width="1.25" stroke-linecap="round">
+              <path d="M100 92v84M93 92h14M93 176h14"/>
+            </g>
+            <text x="84" y="139" font-family="Archivo, sans-serif" font-size="14"
+                  font-weight="600" fill="#263238">30 cm</text>
+          </svg>
+          <figcaption>
+            Profondeur de mesure : 30 cm, la zone où vivent les racines en maraîchage.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="etape revele">
+        <div class="etape__texte">
+          <span class="etape__numero" aria-hidden="true">02</span>
+          <h3 class="etape__titre">Vous recevez une alerte, par téléphone ou par SMS.</h3>
+          <div class="etape__corps">
+            <p>
+              Toutes les quinze minutes, le capteur mesure l'humidité. Quand elle
+              descend sous le seuil que vous avez choisi, AgroTech vous envoie un
+              message. Sur l'application, vous voyez la courbe de la parcelle et
+              vous décidez.
+            </p>
+            <p>
+              Si vous n'avez pas internet, ou pas de smartphone, vous recevez le
+              même message par SMS, en français, sous forme d'une phrase courte.
+              C'est notre canal principal, pas une solution de secours.
+            </p>
+          </div>
+        </div>
+        <!-- Maquette de telephone dessinee en HTML et CSS, pas une capture d'ecran.
+             Un seul appareil montre les deux canaux : l'application en dessous,
+             la notification SMS qui descend par-dessus. -->
+        <figure class="etape__visuel" data-anime="alerte">
+          <div class="telephone">
+            <div class="telephone__coque">
+              <span class="telephone__encoche" aria-hidden="true"></span>
+              <div class="telephone__ecran">
+                <p class="telephone__barre">
+                  <span class="telephone__heure">14:32</span>
+                  <svg class="telephone__indicateurs" viewBox="0 0 62 12" width="62" height="12"
+                       aria-hidden="true" fill="currentColor">
+                    <rect x="0" y="8" width="2.5" height="4" rx="1"/>
+                    <rect x="4.5" y="5.5" width="2.5" height="6.5" rx="1"/>
+                    <rect x="9" y="3" width="2.5" height="9" rx="1"/>
+                    <rect x="13.5" y="0.5" width="2.5" height="11.5" rx="1"/>
+                    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                      <path d="M21 4.4a8.5 8.5 0 0 1 12 0"/>
+                      <path d="M23.6 7.4a4.4 4.4 0 0 1 6.8 0"/>
+                    </g>
+                    <circle cx="27" cy="10.2" r="1.1"/>
+                    <rect x="38" y="2" width="19" height="9" rx="2.5" fill="none"
+                          stroke="currentColor" stroke-width="1.4"/>
+                    <rect x="40" y="4" width="11" height="5" rx="1"/>
+                    <rect x="58.5" y="4.5" width="2" height="4" rx="1"/>
+                  </svg>
+                </p>
+
+                <div class="telephone__notif">
+                  <span class="telephone__notif-puce" aria-hidden="true">A</span>
+                  <div class="telephone__notif-corps">
+                    <p class="telephone__notif-tete">
+                      <span class="telephone__notif-expediteur">AgroTech Faso</span>
+                      <span class="telephone__notif-heure">14:32</span>
+                    </p>
+                    <p class="telephone__notif-texte">
+                      Parcelle 12. Humidité 24 %, sous le seuil de 28 %. Arrosez
+                      aujourd'hui, ou demain après 16 h.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="telephone__app">
+                  <div class="carte-alerte">
+                    <p class="carte-alerte__titre">Il faut arroser</p>
+                    <p class="carte-alerte__lieu">Parcelle 12, Nouna</p>
+                    <svg class="carte-alerte__courbe" viewBox="0 0 200 56" width="200" height="56"
+                         aria-hidden="true" fill="none">
+                      <path class="seuil" d="M4 12h192" stroke="#c9bca2" stroke-width="1.5" stroke-dasharray="4 4"/>
+                      <path class="trace" pathLength="1" d="M4 8c22 2 30 16 46 24s28 16 44 18 30 6 46 6 34 0 56-2"
+                            stroke="#2e6b3a" stroke-width="2.5" stroke-linecap="round"/>
+                      <circle class="pointe" cx="196" cy="54" r="4" fill="#2e6b3a"/>
+                    </svg>
+                    <p class="carte-alerte__valeur">Humidité 24 % — sous votre seuil de 28 %.</p>
+                    <p class="carte-alerte__conseil">Arrosez maintenant, ou demain après 16 h s'il pleut.</p>
+                  </div>
+                  <p class="telephone__pied">Prochain relevé dans 15 min</p>
+                </div>
+              </div>
+              <span class="telephone__accueil" aria-hidden="true"></span>
+            </div>
+          </div>
+          <p class="sms__note">
+            Le SMS passe sans connexion internet et ne pèse que quelques kilo-octets.
+          </p>
+          <figcaption>
+            L'alerte arrive par les deux canaux, avec le même contenu.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="etape revele">
+        <div class="etape__texte">
+          <span class="etape__numero" aria-hidden="true">03</span>
+          <h3 class="etape__titre">Vous arrosez une fois, au bon moment.</h3>
+          <div class="etape__corps">
+            <p>
+              Vous ouvrez la vanne quand le message le dit. L'eau descend jusqu'aux
+              racines au lieu de ruisseler entre les rangées. Votre pompe tourne
+              moins longtemps : vous brûlez moins de carburant, et la pompe
+              vieillit moins vite.
+            </p>
+            <p>
+              Le plus important reste le rendement. La plante ne subit plus de
+              stress hydrique au moment où elle en souffre le plus, c'est-à-dire à
+              la floraison.
+            </p>
+          </div>
+        </div>
+        <figure class="etape__visuel" data-anime="infiltration">
+          <svg viewBox="0 0 380 230" width="380" height="230" role="img"
+               aria-labelledby="v-etape3t" aria-describedby="v-etape3d" fill="none">
+            <title id="v-etape3t">Deux profils de sol, comparés</title>
+            <desc id="v-etape3d">À gauche, sans mesure, l'eau ruisselle en surface
+              et les racines restent courtes. À droite, avec le capteur, l'eau
+              s'infiltre jusqu'à la zone d'humidité et les racines la rejoignent.</desc>
+
+            <text x="8" y="20" font-family="Archivo, sans-serif" font-size="13"
+                  font-weight="700" fill="#263238">Sans mesure</text>
+            <rect x="8" y="76" width="164" height="140" fill="#e9dcc4"/>
+            <path d="M8 76h164" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+            <g fill="#2e6b3a">
+              <path d="M46 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
+              <path d="M90 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
+              <path d="M134 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
+            </g>
+            <g stroke="#b5542c" stroke-width="1.75" stroke-linecap="round" fill="none">
+              <path d="M28 80c8 6 18 6 26 0M124 80c8 6 18 6 26 0"/>
+              <path d="M60 92v26M60 104c-6 0-9-4-10-10 6-1 9 3 10 10Z"/>
+              <path d="M60 110c6 0 9-4 10-10-6-1-9 3-10 10Z"/>
+            </g>
+            <path d="M8 140h164M8 186h164" stroke="#c9bca2" stroke-width="1"/>
+
+            <path d="M216 12v206" stroke="#c9bca2" stroke-width="1"/>
+
+            <text x="216" y="20" font-family="Archivo, sans-serif" font-size="13"
+                  font-weight="700" fill="#2e6b3a">Avec capteur</text>
+            <rect x="216" y="76" width="156" height="140" fill="#e9dcc4"/>
+            <path d="M216 76h156" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+            <path class="feuille" d="M256 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z" fill="#2e6b3a"/>
+            <ellipse class="zone-humide" cx="294" cy="128" rx="34" ry="26" fill="#2e6b3a"/>
+            <path d="M294 46v56" stroke="#2e6b3a" stroke-width="2.5" stroke-linecap="round"/>
+            <g stroke="#b5542c" stroke-width="1.75" stroke-linecap="round" fill="none">
+              <path d="M294 86v22M294 100c-8 0-12-6-13-14 8-1 12 5 13 14Z"/>
+              <path d="M294 108c8 0 12-6 13-14-8-1-12 5-13 14Z"/>
+              <path class="racine" pathLength="1" d="M294 128c0 22-2 40-8 58"/>
+              <path class="racine" pathLength="1" d="M294 128c0 24 3 42 10 58"/>
+            </g>
+            <path d="M216 140h156M216 186h156" stroke="#c9bca2" stroke-width="1"/>
+          </svg>
+          <figcaption>La même quantité d'eau, deux façons de la distribuer.</figcaption>
+        </figure>
+      </li>
+    </ol>
+
+    <div class="rappel revele">
+      <p class="rappel__titre">
+        <svg class="icone" aria-hidden="true"><use href="#i-bouclier"/></svg>
+        Ce qu'il ne faut pas avoir
+      </p>
+      <ul class="rappel__liste">
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-verifie"/></svg>
+          <span>Pas de connexion internet. Le SMS passe par le réseau mobile habituel.</span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-verifie"/></svg>
+          <span>Pas de smartphone. Un téléphone simple qui reçoit des SMS suffit.</span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-verifie"/></svg>
+          <span>Pas d'électricité à brancher. La sonde a sa pile et son panneau solaire.</span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-verifie"/></svg>
+          <span>Pas de savoir lire un graphique. Le message est une phrase, pas un tableau.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     4. Le capteur
+     ===================================================================== -->
+<section class="section section--creme" id="capteur" aria-labelledby="titre-capteur">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>03</span> Le capteur</p>
+    <h2 class="section__titre" id="titre-capteur">Un petit objet, pensé pour durer trois saisons.</h2>
+    <p class="section__chapeau revele">
+      Il mesure l'humidité du sol, envoie le chiffre, et ne demande rien. Il est
+      fait pour rester dehors, sous la pluie et la poussière, et pour fonctionner
+      la plupart du temps sans qu'on y pense.
+    </p>
+
+    <div class="capteur">
+      <figure class="capteur__schema revele" data-anime="schema">
+        <svg viewBox="0 0 260 380" width="260" height="380" role="img"
+             aria-labelledby="v-schematitre" aria-describedby="v-schemadesc" fill="none">
+          <title id="v-schematitre">Schéma du capteur AgroTech</title>
+          <desc id="v-schemadesc">Coupe du capteur planté dans le sol. En haut,
+            un boîtier étanche de vingt-quatre centimètres de haut avec un petit
+            panneau solaire. En dessous, une tige de trente centimètres s'enfonce
+            dans la terre jusqu'à la zone d'humidité, entourée d'un cercle de
+            mesure. Le schéma est un principe, il n'est pas à l'échelle.</desc>
+
+          <path d="M0 236h260" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+          <path d="M0 264h260M0 306h260M0 348h260" stroke="#c9bca2" stroke-width="1"/>
+
+          <circle class="zone" cx="130" cy="316" r="34" stroke="#2e6b3a" stroke-width="1.5" stroke-dasharray="5 5"/>
+          <circle class="impulsion" cx="130" cy="316" r="34" fill="none" stroke="#2e6b3a" stroke-width="1.5"/>
+          <rect x="124" y="212" width="12" height="112" rx="3" fill="#263238"/>
+          <!-- Le rectangle terracotta a opacity 0 ne montrait rien. Il sert
+               desormais de tete de lecture : l'impulsion descend la tige, du
+               boîtier vers la zone de mesure. -->
+          <rect class="descente" x="124" y="212" width="12" height="112" rx="3" fill="#b5542c" opacity="0"/>
+          <rect x="98" y="118" width="64" height="96" rx="7" fill="#263238"/>
+          <rect x="106" y="86" width="48" height="34" rx="4" fill="#2e6b3a"/>
+          <path d="M112 94h36M112 102h36M112 110h24" stroke="#f4ecdd" stroke-width="1.5" stroke-linecap="round"/>
+          <circle class="pointe" cx="130" cy="316" r="6" fill="#2e6b3a"/>
+          <path d="M130 168c-8 0-13-5-14-13 8-1 13 4 14 13ZM130 168c8 0 13-5 14-13-8-1-13 4-14 13Z"
+                fill="#f4ecdd" stroke="#f4ecdd" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="130" cy="152" r="3.5" fill="#b5542c"/>
+
+          <g stroke="#263238" stroke-width="1.25" stroke-linecap="round">
+            <path d="M74 86v-24M67 62h14M67 86h14"/>
+            <path d="M186 236v112M179 348h14M179 236h14"/>
+          </g>
+          <text x="58" y="66" font-family="Archivo, sans-serif" font-size="13"
+                font-weight="600" fill="#263238">24 cm</text>
+          <text x="196" y="297" font-family="Archivo, sans-serif" font-size="13"
+                font-weight="600" fill="#263238">30 cm</text>
+        </svg>
+        <figcaption id="legende-schema">Schéma de principe, pas à l'échelle.</figcaption>
+      </figure>
+
+      <div class="capteur__faits">
+        <ul class="faits revele">
+          <li class="fait">
+            <p class="fait__valeur">15 min</p>
+            <p class="fait__intitule">Entre deux relevés</p>
+            <p class="fait__note">La fréquence est réglable, de cinq minutes à une heure.</p>
+          </li>
+          <li class="fait">
+            <p class="fait__valeur">3 points</p>
+            <p class="fait__intitule">Par sonde</p>
+            <p class="fait__note">Trois profondeurs, pour suivre l'eau du sol jusqu'à 80 cm.</p>
+          </li>
+          <li class="fait">
+            <p class="fait__valeur">IP67</p>
+            <p class="fait__intitule">Étanchéité</p>
+            <p class="fait__note">Poussière et immersion jusqu'à trente minutes, sans dommage.</p>
+          </li>
+          <li class="fait">
+            <p class="fait__valeur">3 saisons</p>
+            <p class="fait__intitule">Durée de vie visée</p>
+            <p class="fait__note">La pile se remplace en cinq minutes, sur place.</p>
+          </li>
+          <li class="fait">
+            <p class="fait__valeur">2G</p>
+            <p class="fait__intitule">Réseau</p>
+            <p class="fait__note">Compatible avec les réseaux mobiles disponibles au Burkina Faso.</p>
+          </li>
+          <li class="fait">
+            <p class="fait__valeur">10 min</p>
+            <p class="fait__intitule">Installation</p>
+            <p class="fait__note">Le conseiller plante, règle le seuil, et repart.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="conteneur-jeu revele">
+      <p class="conteneur-jeu__titre">Ce que le capteur ne fait pas</p>
+      <p class="conteneur-jeu__texte">
+        Il ne mesure ni la chimie du sol, ni la fertilité, ni les maladies des
+        plantes. Il ne pilote pas la pompe à distance, et ne se connecte pas à
+        votre tracteur. Il fait une seule chose, et il la fait bien : dire si le
+        sol est assez humide pour la culture qui y pousse.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     5. Les benefices
+     ===================================================================== -->
+<section class="section" id="benefices" aria-labelledby="titre-benefices">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>04</span> Ce que ça change</p>
+    <h2 class="section__titre" id="titre-benefices">Moins d'eau, moins de carburant, plus de récolte.</h2>
+    <p class="section__chapeau revele">
+      Les mêmes gestes qu'avant, mais au bon moment. Voici ce que les
+      producteurs qui utilisent déjà le capteur racontent, et ce que nous
+      mesurons sur le pilote.
+    </p>
+
+    <div class="benefices">
+      <dl class="benefices__principal">
+        <div class="benefice revele">
+          <dt class="benefice__valeur">18 %</dt>
+          <dd>
+            <p class="benefice__intitule">d'eau en moins sur une parcelle de maraîchage</p>
+            <p class="benefice__note">
+              à qualité d'arrosage équivalente, sur la saison chaude du pilote.
+            </p>
+          </dd>
+        </div>
+        <div class="benefice revele">
+          <dt class="benefice__valeur">22 %</dt>
+          <dd>
+            <p class="benefice__intitule">de carburant en moins pour le pompage</p>
+            <p class="benefice__note">
+              parce qu'on irrigue moins longtemps, et seulement quand le sol le demande.
+            </p>
+          </dd>
+        </div>
+        <div class="benefice revele">
+          <dt class="benefice__valeur">+12 %</dt>
+          <dd>
+            <p class="benefice__intitule">de rendement sur les cultures sensibles</p>
+            <p class="benefice__note">
+              là où le stress hydrique à la floraison était le facteur limitant.
+            </p>
+          </dd>
+        </div>
+      </dl>
+
+      <ul class="benefices__secondaires revele">
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-horloge"/></svg>
+          <span>
+            <strong>Moins de va-et-vient.</strong> Vous ne parcourez plus la parcelle
+            pour deviner. Vous attendez le message, vous allez une fois.
+          </span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-pousse"/></svg>
+          <span>
+            <strong>Un historique propre.</strong> Vos relevés sont conservés trois
+            saisons. C'est la mémoire de votre parcelle, pas la nôtre.
+          </span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-caisse"/></svg>
+          <span>
+            <strong>Des décisions defendables.</strong> Face à une banque, à une
+            coopérative ou à un acheteur, vous avez des chiffres datés.
+          </span>
+        </li>
+        <li>
+          <svg class="icone" aria-hidden="true"><use href="#i-soleil"/></svg>
+          <span>
+            <strong>Une sonde qui tient.</strong> Le boîtier est étanche et le
+            panneau solaire recharge la pile sans fil ni batterie externe.
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <p class="hypothese">
+      Ces pourcentages viennent de nos relevés sur <strong>38 parcelles</strong>
+      suivies pendant la campagne 2025. Ils valent pour le maraîchage de saison
+      chaude ; ils ne sont pas encore transposables au mil pluvial. Les
+      hypothèses de calcul sont détaillées dans le dossier investisseurs.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     6. Temoignages
+     ===================================================================== -->
+<section class="section section--creme" id="temoignages" aria-labelledby="titre-temoignages">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>05</span> Ce que disent les producteurs</p>
+    <h2 class="section__titre" id="titre-temoignages">Ceux qui ont déjà testé.</h2>
+    <p class="section__chapeau revele">
+      Trois producteurs de la région de la Boucle du Mouhoun, suivis pendant la
+      campagne 2025.
+    </p>
+
+    <ul class="temoignages">
+      <li class="temoignage revele">
+        <blockquote>
+          <p>
+            Avant, je passais deux fois par jour dans le maraîchage, et je
+            ouvrais la vanne presque toujours le matin, quoi qu'il arrive. Avec
+            l'alerte, j'arrose quand le sol le dit. J'ai supprimé un cycle
+            d'arrosage entier par semaine.
+          </p>
+        </blockquote>
+        <div>
+          <p class="temoignage__nom">Alizeta K.</p>
+          <p class="temoignage__etiquette">Maraîchère, 0,4 ha, Nouna</p>
+        </div>
+      </li>
+      <li class="temoignage revele">
+        <blockquote>
+          <p>
+            Ce qui m'a convaincu, c'est le SMS. Je n'ai pas de smartphone, mais
+            j'ai un téléphone simple. Le message est en français, court, et ça
+            marche même quand le réseau est mauvais.
+          </p>
+        </blockquote>
+        <div>
+          <p class="temoignage__nom">Salif D.</p>
+          <p class="temoignage__etiquette">Céréales et niébé, 2 ha, Solenzo</p>
+        </div>
+      </li>
+      <li class="temoignage revele">
+        <blockquote>
+          <p>
+            On est plusieurs producteurs autour de la même nappe. Maintenant,
+            chacun connaît son sol. Quand on discute au marché, on parle de
+            chiffres, pas d'impressions.
+          </p>
+        </blockquote>
+        <div>
+          <p class="temoignage__nom">Boureima T.</p>
+          <p class="temoignage__etiquette">Groupement de 11 producteurs, Réo</p>
+        </div>
+      </li>
+    </ul>
+
+    <p class="note-temoignages revele">
+      Ces témoignages sont recueillis auprès de producteurs réels du pilote, avec
+      leur accord. Ils sont publiés sans rémunération, et leur nom a été raccourci
+      à la première lettre.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     7. Investisseurs
+     ===================================================================== -->
+<section class="section section--sombre" id="investisseurs" aria-labelledby="titre-investisseurs">
+  <div class="conteneur">
+    <p class="surtitre surtitre--clair revele"><span>06</span> Investisseurs</p>
+    <h2 class="section__titre section__titre--clair" id="titre-investisseurs">Nous levons 34 millions de F CFA sur 18 mois.</h2>
+    <p class="section__chapeau chapeau--clair revele">
+      Pour passer du pilote à l'échelle : financer le produit, l'équipe, la pose
+      sur le terrain, et les études qui nous manquent. Voici les chiffres, et
+      aussi leurs limites.
+    </p>
+
+    <div class="frise" role="list" aria-label="Utilisation des fonds" data-anime="frise">
+      <div class="phase revele" role="listitem">
+        <p class="phase__part">45 %</p>
+        <h3 class="phase__titre">Produit et industrialisation</h3>
+        <p class="phase__corps">
+          Deuxième version du boîtier, 1 000 unités en stock et en cours de pose,
+          à 15 300 F CFA l'unité. Certification, outillage, et le stock de
+          rechange du réseau.
+        </p>
+      </div>
+      <div class="phase revele" role="listitem">
+        <p class="phase__part">25 %</p>
+        <h3 class="phase__titre">Équipe</h3>
+        <p class="phase__corps">
+          Onze personnes sur dix-huit mois : six conseillers de pose sur le
+          terrain, deux ingénieurs, une personne support et formation, deux
+          responsables.
+        </p>
+      </div>
+      <div class="phase revele" role="listitem">
+        <p class="phase__part">20 %</p>
+        <h3 class="phase__titre">Terrain et déploiement</h3>
+        <p class="phase__corps">
+          Véhicules, carburant pour les tournées, pose chez 900 abonnés, et
+          entretien du parc de capteurs dans la Boucle du Mouhoun.
+        </p>
+      </div>
+      <div class="phase revele" role="listitem">
+        <p class="phase__part">10 %</p>
+        <h3 class="phase__titre">Études et structure</h3>
+        <p class="phase__corps">
+          Design et packaging, mesures agronomiques indépendantes, frais de
+          structure, et une réserve de sécurité.
+        </p>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER chiffres : hypotheses de travail a valider par l'equipe
+         avant diffusion. Ce sont des engagements financiers. -->
+    <div class="investisseurs__donnees">
+      <div class="tableau-enveloppe revele">
+        <table class="tableau">
+          <caption>Le marché que nous visons, par couche</caption>
+          <thead>
+            <tr>
+              <th scope="col">Segment</th>
+              <th scope="col">Volume estimé</th>
+              <th scope="col">Notre cible à 3 ans</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Maraîchage familial, 0,2 à 1 ha</th>
+              <td>1 200 exploitations</td>
+              <td>900 abonnés</td>
+            </tr>
+            <tr>
+              <th scope="row">Céréales pluviales, plus de 1 ha</th>
+              <td>6 500 exploitations</td>
+              <td>Partenariat coopératives</td>
+            </tr>
+            <tr>
+              <th scope="row">Ensemble de l'agriculture irriguée au pays</th>
+              <td>90 000 exploitations</td>
+              <td>Horizon 5 ans</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <dl class="resultats">
+        <div class="resultat revele">
+          <dt class="resultat__intitule">Notre cible immédiate</dt>
+          <dd class="resultat__valeur">1 200 unités</dd>
+          <p class="resultat__note">
+            900 abonnés du maraîchage familial, sur la Boucle du Mouhoun et les
+            Hauts-Bassins, en dix-huit mois.
+          </p>
+        </div>
+        <div class="resultat revele">
+          <dt class="resultat__intitule">Revenu récurrent visé</dt>
+          <dd class="resultat__valeur">5,4 M F CFA</dd>
+          <p class="resultat__note">
+            900 abonnements à 6 000 F CFA par an, soit une base mensuelle stable
+            qui couvre nos charges de terrain.
+          </p>
+        </div>
+        <div class="resultat revele">
+          <dt class="resultat__intitule">Marge par abonné</dt>
+          <dd class="resultat__valeur">+3 200 F CFA</dd>
+          <p class="resultat__note">
+            Après la pose, l'envoi des messages et l'entretien. Marge qui
+            s'améliore quand la distance entre parcelles baisse.
+          </p>
+        </div>
+        <div class="resultat revele">
+          <dt class="resultat__intitule">Point mort</dt>
+          <dd class="resultat__valeur">T3 de l'année 2</dd>
+          <p class="resultat__note">
+            Atteint avec environ 640 abonnés actifs et 9 conseillers de
+            pose déployés.
+          </p>
+        </div>
+      </dl>
+    </div>
+
+    <div class="investisseurs__unite revele">
+      <div>
+        <h3 class="investisseurs__unite-titre">L'économie d'un abonné</h3>
+        <p class="investisseurs__unite-corps">
+          Le prix de vente est revu chaque année selon le prix de la sonde. Le
+          modèle ne dépend pas de la vente de matériel comme source de marge :
+          tout l'effort commercial porte sur l'abonnement, parce que c'est lui qui
+          reste.
+        </p>
+      </div>
+      <div class="unite-lignes">
+        <div class="unite-ligne">
+          <span class="unite-ligne__intitule">Pose de la sonde, une fois</span>
+          <span class="unite-ligne__valeur">24 000 F CFA</span>
+        </div>
+        <div class="unite-ligne">
+          <span class="unite-ligne__intitule">Abonnement annuel, messages compris</span>
+          <span class="unite-ligne__valeur">6 000 F CFA</span>
+        </div>
+        <div class="unite-ligne">
+          <span class="unite-ligne__intitule">Retour sur investissement pour le producteur</span>
+          <span class="unite-ligne__valeur">1 à 2 campagnes</span>
+        </div>
+        <div class="unite-ligne">
+          <span class="unite-ligne__intitule">Montant recherché</span>
+          <span class="unite-ligne__valeur">34 M F CFA ≈ 51 000 €</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="investisseurs__contact revele">
+      <p class="investisseurs__contact-texte">
+        Le dossier complet — hypothèses, budget détaillé, contrat de pose,
+        mesures du pilote — est disponible sur demande.
+      </p>
+      <a class="bouton bouton--principal" href="#contact">
+        Demander le dossier
+        <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+      </a>
+    </div>
+
+    <p class="avertissement">
+      <strong>À lire avant d'investir.</strong> AgroTech Faso est en phase de
+      pilote. Tous les chiffres de cette page sont des projections établies à
+      partir de nos relevés sur 38 parcelles et d'entretiens terrain. Ils ne
+      constituent pas une garantie de résultat, ni une offre au public. Les
+      montants en euros sont convertis au taux indicatif du 31 mars 2026.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     8. Presentation video
+     ===================================================================== -->
+<section class="section" id="video" aria-labelledby="titre-video">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>07</span> Présentation</p>
+    <h2 class="section__titre" id="titre-video">Deux minutes sur une parcelle.</h2>
+    <p class="section__chapeau revele">
+      Nous allons dans une parcelle de Nouna, nous plantons le capteur devant la
+      caméra, et nous attendons la première alerte. Rien n'est filmé en studio.
+    </p>
+
+    <div class="video">
+      <!-- PLACEHOLDER video : renseignez data-video avec l'identifiant YouTube,
+           ex. data-video="aBcD1234". Tant qu'il reste vide, un clic affiche un
+           message de repli honnete au lieu d'un lecteur casse.
+           Façade statique : aucune requête vers YouTube avant le clic. -->
+      <button class="video__cadre" id="video-cadre" type="button"
+              data-video="" aria-label="Lire la vidéo de présentation d'AgroTech Faso, deux minutes">
+        <span class="video__motif" aria-hidden="true">
+          <svg viewBox="0 0 640 360" width="640" height="360" fill="none" preserveAspectRatio="xMidYMid slice">
+            <rect width="640" height="360" fill="#122e1a"/>
+            <g stroke="#2e6b3a" stroke-width="1.25">
+              <path d="M40 300v-56M120 300v-56M200 300v-56M280 300v-56M360 300v-56M440 300v-56M520 300v-56M600 300v-56"/>
+            </g>
+            <path d="M0 300h640" stroke="#74b37f" stroke-width="3"/>
+            <circle cx="330" cy="180" r="76" fill="#0c2113"/>
+            <path d="M330 138c0 0-30 34-30 54a30 30 0 0 0 60 0c0-20-30-54-30-54Z" fill="#74b37f"/>
+            <path d="M300 194h60v22a30 30 0 0 1-60 0Z" fill="#d9773f"/>
+            <path d="M330 194v-16" stroke="#f4ecdd" stroke-width="4" stroke-linecap="round"/>
+            <path d="M330 186c-6 0-10-4-10-10 6-1 9 3 10 10ZM330 186c6 0 10-4 10-10-6-1-9 3-10 10Z" fill="#f4ecdd"/>
+            <g stroke="#d9773f" stroke-width="3" stroke-linecap="round" fill="none">
+              <path class="arc arc--2" pathLength="1" d="M418 168a22 22 0 0 1 30 0"/>
+              <path class="arc arc--3" pathLength="1" d="M406 152a40 40 0 0 1 56 0"/>
+            </g>
+            <g fill="#f4ecdd" opacity="0.08">
+              <circle cx="70" cy="60" r="42"/>
+              <circle cx="580" cy="86" r="30"/>
+            </g>
+          </svg>
+        </span>
+        <span class="video__bouton">
+          <svg class="icone icone--grand" aria-hidden="true"><use href="#i-lecteur"/></svg>
+        </span>
+        <span class="video__affiche">
+          <span class="video__titre">AgroTech Faso en deux minutes</span>
+          <span class="video__duree">2 min 14 s · Sous-titres en français</span>
+        </span>
+      </button>
+
+      <div class="video__texte">
+        <p>
+          La vidéo montre une pose réelle, du début à la fin : le choix du point
+          de mesure, l'enfoncement de la sonde, la photo de la parcelle, et
+          l'alerte reçue le lendemain matin.
+        </p>
+        <p>
+          Si vous préférez lire, le <a href="#capteur">schéma du capteur</a> et
+          les <a href="#etapes">trois étapes</a> donnent la même information.
+        </p>
+        <p class="video__note">
+          La vidéo est hébergée sur une plateforme tierce. Rien n'est chargé ni
+          envoyé à cette plateforme tant que vous n'avez pas cliqué sur l'image.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     9. Equipe
+     ===================================================================== -->
+<section class="section section--creme" id="equipe" aria-labelledby="titre-equipe">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>08</span> L'équipe</p>
+    <h2 class="section__titre" id="titre-equipe">Trois personnes, deux métiers, une région.</h2>
+    <p class="section__chapeau revele">
+      Nous sommes une équipe de trois ASSOCIÉS. Deux viennent de l'agronomie et
+      du développement rural, une du logiciel. Nous travaillons depuis
+      Bobo-Dioulasso, sur des parcelles que nous visitons chaque semaine.
+    </p>
+
+    <!-- PLACEHOLDER equipe : noms, fonctions, parcours et monogrammes a
+         confirmer. Les monogrammes sont des initiales, pas des photographies. -->
+    <ul class="equipe">
+      <li class="membre revele">
+        <div class="membre__portrait" role="img" aria-label="Monogramme de Amadou Sawadogo">
+          <span>AS</span>
+        </div>
+        <div class="membre__texte">
+          <h3 class="membre__nom">Amadou Sawadogo</h3>
+          <p class="membre__role">Cofondateur, agronomie et terrain</p>
+          <p class="membre__bio">
+            Neuf ans de conseil agricole dans la Boucle du Mouhoun, dont quatre
+            auprès de coopératives de maraîchage. C'est lui qui a posé les
+            premières sondes, et qui répond au téléphone le dimanche quand un
+            producteur n'a pas reçu son alerte.
+          </p>
+        </div>
+      </li>
+      <li class="membre revele">
+        <div class="membre__portrait membre__portrait--amina" role="img" aria-label="Monogramme de Aminata Ouédraogo">
+          <span>AO</span>
+        </div>
+        <div class="membre__texte">
+          <h3 class="membre__nom">Aminata Ouédraogo</h3>
+          <p class="membre__role">Cofondatrice, économie et financement</p>
+          <p class="membre__bio">
+            Sept ans en analyse de projets agricoles, dont trois sur des
+            financements de campagne. Elle a construit le modèle économique de la
+            société, négocié avec les opérateurs de mobile, et répond aux questions
+            des investisseurs.
+          </p>
+        </div>
+      </li>
+      <li class="membre revele">
+        <div class="membre__portrait membre__portrait--ibrahim" role="img" aria-label="Monogramme de Ibrahim Zongo">
+          <span>IZ</span>
+        </div>
+        <div class="membre__texte">
+          <h3 class="membre__nom">Ibrahim Zongo</h3>
+          <p class="membre__role">Cofondateur, capteur et logiciel</p>
+          <p class="membre__bio">
+            Développeur embarqué, passé par des projets de télémétrie et de
+            stations météo. Il a conçu la carte du capteur, écrit la première
+            version du logiciel, et gère l'envoi des SMS.
+          </p>
+        </div>
+      </li>
+    </ul>
+
+    <p class="recrutement revele">
+      Nous recrutons au fil de l'eau : conseillers de pose, ingénieur agronome,
+      technicien électronique. Si vous travaillez dans l'agriculture au Burkina
+      et que ça vous parle, écrivez-nous.
+      <a href="#contact">Voir les postes ouverts</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     10. Questions frequentes
+     ===================================================================== -->
+<section class="section" id="faq" aria-labelledby="titre-faq">
+  <div class="conteneur conteneur--etroit">
+    <p class="surtitre revele"><span>09</span> Questions fréquentes</p>
+    <h2 class="section__titre" id="titre-faq">Ce qu'on nous demande le plus.</h2>
+
+    <div class="faq revele">
+      <details>
+        <summary>
+          <span>Faut-il avoir internet sur son téléphone ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            Non. L'alerte part par SMS sur le réseau mobile classique, et la
+            connexion internet n'est utile que pour consulter la courbe
+            d'humidité sur l'application. Un téléphone simple suffit.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>Quel est le prix ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            24 000 F CFA pour poser le capteur, puis 6 000 F CFA par an pour
+            l'abonnement, qui comprend les alertes, l'entretien et le
+            remplacement de la pile. Le prix est identique pour un demi-hectare
+            ou pour un hectare : on facture le service, pas l'hectare.
+          </p>
+          <p>
+            Si l'abonnement est renouvelé, la pose de la saison suivante est
+            offerte.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>Est-ce que ça marche pendant l'hivernage ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            Le capteur mesure en continu, pluie comprise. Il vous montre
+            précisément quand la pluie a rechargé le sol, et vous permet
+            d'arrêter d'irriguer pendant l'accalmie. C'est souvent là que
+            l'économie d'eau est la plus grande.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>Et si je laisse le capteur toute l'année sans l'utiliser ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            Vous pouvez arrêter l'abonnement à la fin de la saison. Le capteur
+            reste en place, il continue de mesurer, et vous reprenez quand vous
+            voulez. Il n'y a pas de frais de résiliation, et personne ne vous
+            demandera de le déterrer.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>Et si ma parcelle est en pente, ou irriguée à la raie ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            C'est justement le cas le plus intéressant. En pente, l'eau ruisselle
+            en surface et la perte est plus forte qu'ailleurs. Nous posons alors
+            la sonde au point bas de la parcelle, là où la perte se fait sentir,
+            et nous comparons avec un second point en haut. Le conseiller choisit
+            l'emplacement avec vous, sur place.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span>Qui possède les données ?</span>
+          <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+        </summary>
+        <div class="faq__reponse">
+          <p>
+            Vous, sans aucune ambiguïté. Nous ne les revendons pas, nous ne les
+            partageons pas avec des banques ni avec des assureurs. Vous pouvez
+            demander l'export de vos relevés, ou leur suppression, à tout moment,
+            en écrivant à notre adresse.
+          </p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     11. Contact
+     ===================================================================== -->
+<section class="section section--creme" id="contact" aria-labelledby="titre-contact">
+  <div class="conteneur">
+    <p class="surtitre revele"><span>10</span> Contact</p>
+    <h2 class="section__titre" id="titre-contact">Parlons de votre parcelle.</h2>
+    <p class="section__chapeau revele">
+      Une question sur le capteur, sur le prix, ou un dossier d'investissement à
+      voir ? Écrivez-nous, appelez-nous, ou passez au bureau. Nous répondons en
+      français, en anglais, et en mooré quand le besoin s'en fait sentir.
+    </p>
+
+    <div class="contact">
+      <!--
+        Formulaire traité côté navigateur uniquement : aucune donnée n'est
+        envoyée à un serveur tant qu'un service réel n'est pas branché. Le
+        script se charge d'afficher un récapitulatif, puis propose l'envoi par
+        messagerie.
+      -->
+      <div class="formulaire-enveloppe revele">
+        <form class="formulaire" id="formulaire" novalidate>
+          <p class="formulaire__type">
+            <span class="formulaire__legende">Je suis</span>
+            <span class="choix">
+              <input type="radio" id="profil-producteur" name="profil" value="producteur" checked>
+              <label for="profil-producteur">Un producteur</label>
+            </span>
+            <span class="choix">
+              <input type="radio" id="profil-investisseur" name="profil" value="investisseur">
+              <label for="profil-investisseur">Un investisseur ou un partenaire</label>
+            </span>
+          </p>
+
+          <div class="champ">
+            <label for="nom">Votre nom</label>
+            <input type="text" id="nom" name="nom" autocomplete="name" required
+                   aria-describedby="erreur-nom">
+            <p class="champ__erreur" id="erreur-nom" role="alert" hidden></p>
+          </div>
+
+          <div class="champ">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" autocomplete="tel"
+                   inputmode="tel" required aria-describedby="erreur-telephone aide-telephone">
+            <p class="champ__aide" id="aide-telephone">
+              Format attendu : 70 12 34 56. C'est par là que nous vous rappelons.
+            </p>
+            <p class="champ__erreur" id="erreur-telephone" role="alert" hidden></p>
+          </div>
+
+          <div class="champ">
+            <label for="parcelle">Où est votre parcelle ? <span class="champ__optionnel">(facultatif)</span></label>
+            <input type="text" id="parcelle" name="parcelle" autocomplete="address-level2"
+                   aria-describedby="aide-parcelle">
+            <p class="champ__aide" id="aide-parcelle">
+              Village, commune ou région. Un nom de parcelle suffit.
+            </p>
+          </div>
+
+          <div class="champ">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" rows="5" required
+                      aria-describedby="erreur-message"></textarea>
+            <p class="champ__erreur" id="erreur-message" role="alert" hidden></p>
+          </div>
+
+          <button class="bouton bouton--principal formulaire__envoi" type="submit">
+            Envoyer le message
+            <svg class="icone" aria-hidden="true"><use href="#i-fleche"/></svg>
+          </button>
+
+          <p class="formulaire__mention">
+            Cette page est une démonstration : le formulaire n'envoie rien à un
+            serveur. À la validation, il prépare un message que vous pouvez
+            envoyer vous-même.
+          </p>
+
+          <div class="formulaire__retour" id="formulaire-retour" role="status" hidden>
+            <p class="formulaire__retour-titre">Votre message est prêt.</p>
+            <p id="formulaire-recap"></p>
+            <p>
+              <a class="bouton bouton--second" id="lien-messagerie" href="#">Ouvrir ma messagerie</a>
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact__infos" aria-label="Autres façons de nous joindre">
+        <div class="info-bloc">
+          <h3 class="info-bloc__titre">
+            <svg class="icone" aria-hidden="true"><use href="#i-telephone"/></svg>
+            Téléphone et WhatsApp
+          </h3>
+          <p>
+            <a href="tel:+22652616867">+226 52 61 68 67</a><br>
+            Du lundi au samedi, 8 h à 18 h.
+          </p>
+        </div>
+
+        <div class="info-bloc">
+          <h3 class="info-bloc__titre">
+            <svg class="icone" aria-hidden="true"><use href="#i-message"/></svg>
+            WhatsApp
+          </h3>
+          <p>
+            Envoyez un message vocal, si vous préférez parler plutôt qu'écrire.
+            <a href="https://wa.me/22652616867">Ouvrir la discussion</a>.
+          </p>
+        </div>
+
+        <div class="info-bloc">
+          <h3 class="info-bloc__titre">
+            <svg class="icone" aria-hidden="true"><use href="#i-courriel"/></svg>
+            Courriel
+          </h3>
+          <p>
+            <a href="mailto:contact@agrotech-faso.bf">contact@agrotech-faso.bf</a><br>
+            Réponse en moins de deux jours ouvrés.
+          </p>
+        </div>
+
+        <!-- PLACEHOLDER adresse : verifier le libelle exact du siege. -->
+        <div class="info-bloc">
+          <h3 class="info-bloc__titre">
+            <svg class="icone" aria-hidden="true"><use href="#i-pin"/></svg>
+            Bureau
+          </h3>
+          <p>
+            Avenue de la Nation, Bobo-Dioulasso, Burkina Faso.<br>
+            Rendez-vous sur place, sur demande.
+          </p>
+        </div>
+
+        <!-- PLACEHOLDER reseaux : comptes a creer ou a pointer vers les reels. -->
+        <div class="info-bloc info-bloc--reseaux">
+          <h3 class="info-bloc__titre">Suivez la campagne</h3>
+          <p>
+            <a class="lien-reseau" href="https://www.facebook.com/agrotechfaso" rel="noopener">
+              <svg class="icone" aria-hidden="true"><use href="#i-facebook"/></svg>
+              Facebook
+            </a>
+            <a class="lien-reseau" href="https://www.instagram.com/agrotechfaso" rel="noopener">
+              <svg class="icone" aria-hidden="true"><use href="#i-instagram"/></svg>
+              Instagram
+            </a>
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========================================================================
+     Pied de page
+     ===================================================================== -->
+<footer class="pied">
+  <div class="conteneur">
+    <div class="pied__grille">
+      <div class="pied__identite">
+        <div class="pied__logo">
+          <img src="assets/img/logo-compact-dark.svg" width="1678" height="432"
+               alt="AgroTech Faso" loading="lazy" decoding="async">
+        </div>
+        <p class="pied__baseline">
+          Capteurs d'humidité du sol pour les producteurs du Burkina Faso.
+        </p>
+
+        <div class="pied__contact">
+          <a class="pied__tel" href="tel:+22652616867">+226 52 61 68 67</a>
+          <a class="pied__ecriture" href="https://wa.me/22652616867">Écrire sur WhatsApp</a>
+          <a class="pied__ecriture" href="mailto:contact@agrotech-faso.bf">contact@agrotech-faso.bf</a>
+          <p class="pied__ville">Bobo-Dioulasso, Burkina Faso</p>
+        </div>
+      </div>
+
+      <nav class="pied__navigation" aria-label="Liens de pied de page">
+        <h2 class="pied__titre">Sur cette page</h2>
+        <ul class="pied__liste">
+          <li><a href="#probleme">Le problème</a></li>
+          <li><a href="#etapes">Comment ça marche</a></li>
+          <li><a href="#capteur">Le capteur</a></li>
+          <li><a href="#benefices">Ce que ça change</a></li>
+          <li><a href="#temoignages">Producteurs</a></li>
+          <li><a href="#investisseurs">Investisseurs</a></li>
+          <li><a href="#equipe">L'équipe</a></li>
+          <li><a href="#faq">Questions fréquentes</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="pied__mention">
+      <strong>À propos de ce site.</strong> AgroTech Faso est un projet de
+      démonstration construit pour illustrer une offre de service agricole. Les
+      prix, les pourcentages, les témoignages et les projections financières
+      publiés ici sont illustratifs et ne constituent ni une offre commerciale,
+      ni un conseil agricole, ni une sollicitation d'investissement. Les
+      montants en euros sont donnés à titre indicatif. Pour un investissement,
+      demandez le dossier complet et consultez un conseiller.
+    </p>
+
+    <div class="pied__bas">
+      <p class="pied__copyright">© <span id="annee">2026</span> AgroTech Faso. Tous droits réservés.</p>
+      <ul class="pied__legaux">
+        <li><a href="#contact">Mentions légales</a></li>
+        <li><a href="#contact">Confidentialité</a></li>
+        <li><a href="#contact">Nous contacter</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
