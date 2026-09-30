@@ -292,75 +292,32 @@
       </div>
     </div>
 
-    <figure class="hero__visuel revele">
-      <!-- Dessin vectoriel fait pour ce projet : parcelle vue de dessus,
-           rangees de culture, canal d'eau, capteur plante en son centre. -->
-      <svg viewBox="0 0 320 320" width="320" height="320" role="img"
-           aria-labelledby="v-herotitre" aria-describedby="v-herodesc" fill="none">
-        <title id="v-herotitre">Une parcelle vue de dessus</title>
-        <desc id="v-herodesc">Vue de dessus d'une parcelle en maraîchage. Sept
-          rangées de culture sont alignées, un canal d'eau vert borde le bas de
-          la parcelle, et un capteur, dessiné comme la goutte du logo AgroTech
-          Faso, est planté au centre. Trois arcs signalent qu'il transmet ses
-          mesures.</desc>
-
-        <defs>
-          <!-- Un plant, dessine une fois et reutilise sur chaque rangee. -->
-          <g id="plant" stroke="#2e6b3a" stroke-width="1.5" stroke-linecap="round">
-            <path d="M0 0v9M-4 5 0 1l4 4"/>
-          </g>
-        </defs>
-
-        <rect x="20" y="20" width="280" height="280" fill="#f4ecdd" stroke="#263238" stroke-width="1.5"/>
-        <g stroke="#b5542c" stroke-width="1.25">
-          <path d="M55 38v222M90 38v222M125 38v222M160 38v222M195 38v222M230 38v222M265 38v222"/>
-        </g>
-        <g>
-          <use href="#plant" x="55" y="72"/><use href="#plant" x="55" y="122"/>
-          <use href="#plant" x="55" y="172"/><use href="#plant" x="55" y="222"/>
-          <use href="#plant" x="90" y="72"/><use href="#plant" x="90" y="122"/>
-          <use href="#plant" x="90" y="172"/><use href="#plant" x="90" y="222"/>
-          <use href="#plant" x="125" y="72"/><use href="#plant" x="125" y="122"/>
-          <use href="#plant" x="125" y="172"/><use href="#plant" x="125" y="222"/>
-          <use href="#plant" x="160" y="72"/><use href="#plant" x="160" y="122"/>
-          <use href="#plant" x="160" y="172"/><use href="#plant" x="160" y="222"/>
-          <use href="#plant" x="195" y="72"/><use href="#plant" x="195" y="122"/>
-          <use href="#plant" x="195" y="172"/><use href="#plant" x="195" y="222"/>
-          <use href="#plant" x="230" y="72"/><use href="#plant" x="230" y="122"/>
-          <use href="#plant" x="230" y="172"/><use href="#plant" x="230" y="222"/>
-          <use href="#plant" x="265" y="72"/><use href="#plant" x="265" y="122"/>
-          <use href="#plant" x="265" y="172"/><use href="#plant" x="265" y="222"/>
-        </g>
-        <rect x="20" y="268" width="280" height="32" fill="#2e6b3a"/>
-        <path class="canal__courant" d="M42 284h18M80 284h18M118 284h18M156 284h18M194 284h18M232 284h18M270 284h18"
-              stroke="#f4ecdd" stroke-width="1.5" stroke-linecap="round"/>
-
-        <!-- Capteur : la goutte du logotype, au meme dessin que la marque. -->
-        <defs>
-          <clipPath id="bande-capteur">
-            <path d="M100,14 C100,14 40,84 40,124 A60,60 0 0 0 160,124 C160,84 100,14 100,14 Z"/>
-          </clipPath>
-        </defs>
-        <g transform="translate(132 142.3) scale(0.28)">
-          <path d="M100,14 C100,14 40,84 40,124 A60,60 0 0 0 160,124 C160,84 100,14 100,14 Z" fill="#2e6b3a"/>
-          <rect x="30" y="158" width="140" height="40" fill="#b5542c" clip-path="url(#bande-capteur)"/>
-          <path d="M100,160 L100,108" stroke="#f4ecdd" stroke-width="7" stroke-linecap="round" fill="none"/>
-          <path d="M100,140 C86,142 66,134 62,114 C80,110 97,120 100,140 Z" fill="#f4ecdd"/>
-          <path d="M100,114 C103,94 120,80 142,82 C140,104 122,117 100,114 Z" fill="#f4ecdd"/>
-        </g>
-        <g stroke="#b5542c" stroke-width="2.5" stroke-linecap="round" fill="none">
-          <!-- pathLength="1" normalise la longueur : le trace anime va de 1 a 0
-               sans avoir a mesurer chaque arc a la main. -->
-          <path class="arc arc--1" pathLength="1" d="M151 136a13 13 0 0 1 18 0"/>
-          <path class="arc arc--2" pathLength="1" d="M145 127a22 22 0 0 1 30 0"/>
-          <path class="arc arc--3" pathLength="1" d="M139 118a31 31 0 0 1 42 0"/>
-        </g>
-        <circle class="impulsion" cx="160" cy="172" r="22" fill="none"
-                stroke="#2e6b3a" stroke-width="1.5"/>
-      </svg>
+    <figure class="hero__visuel hero__visuel--photo revele">
+      <!-- Photo reelle : parcelle au coucher de soleil avec capteurs
+           solaires AgroTech. Remplace le SVG illustratif. -->
+      <div class="hero__photo-cadre">
+        <picture>
+          <source srcset="assets/img/agriculture_01.webp" type="image/webp">
+          <img
+            src="assets/img/agriculture_01.jpg"
+            alt="Parcelle de maraichage au Burkina Faso au coucher de soleil, avec des capteurs a panneau solaire plantes entre les rangees de cultures."
+            width="334"
+            height="470"
+            fetchpriority="high"
+            decoding="async"
+            loading="eager"
+          >
+        </picture>
+        <div class="hero__photo-badge" aria-hidden="true">
+          <span class="hero__photo-badge-puce">
+            <svg class="icone" aria-hidden="true"><use href="#i-goutte"/></svg>
+          </span>
+          <span class="hero__photo-badge-texte">Humidit&eacute;&nbsp;24&nbsp;% &mdash; Arrosez aujourd&rsquo;hui</span>
+        </div>
+      </div>
       <figcaption>
-        Trois points de mesure sur la même parcelle, relevés toutes les quinze
-        minutes. Sous 28 % d'humidité, AgroTech vous alerte.
+        Capteurs AgroTech en situation r&eacute;elle. Relev&eacute; toutes les 15&nbsp;min,
+        alerte d&egrave;s que l&rsquo;humidit&eacute; passe sous votre seuil.
       </figcaption>
     </figure>
   </div>
@@ -372,7 +329,7 @@
 <section class="section section--creme" id="probleme" aria-labelledby="titre-probleme">
   <div class="conteneur">
     <p class="surtitre revele"><span>01</span> Le problème</p>
-    <h2 class="section__titre" id="titre-probleme">Aujourd'hui, on arrose à l'Å“il.</h2>
+    <h2 class="section__titre" id="titre-probleme">Aujourd'hui, on arrose à l'œil.</h2>
     <p class="section__chapeau revele">
       Sans mesure, on décide d'irriguer de mémoire, ou dès que la pompe est
       disponible. Sur une parcelle en pente, une bonne partie de l'eau part
@@ -380,36 +337,55 @@
       carburant, et la récolte en souffre quand même.
     </p>
 
-    <dl class="chiffres">
-      <div class="chiffres__ligne revele">
-        <dt class="chiffres__terme">62 %</dt>
-        <dd class="chiffres__note">
-          de l'eau d'irrigation perdue avant les racines, par ruissellement,
-          évaporation et fuite de rigoles, sur une parcelle irriguée à la raie.
-        </dd>
-      </div>
-      <div class="chiffres__ligne revele">
-        <dt class="chiffres__terme">30 %</dt>
-        <dd class="chiffres__note">
-          d'eau appliquée en trop par rapport aux besoins de la culture, en
-          maraîchage de saison chaude, quand on irrigue par habitude.
-        </dd>
-      </div>
-      <div class="chiffres__ligne revele">
-        <dt class="chiffres__terme">4 h</dt>
-        <dd class="chiffres__note">
-          par hectare et par semaine pour décider où et quand arroser, en
-          parcourant la parcelle plante par plante.
-        </dd>
-      </div>
-      <div class="chiffres__ligne revele">
-        <dt class="chiffres__terme">20 000 à 45 000 F CFA</dt>
-        <dd class="chiffres__note">
-          de carburant pour pomper l'eau d'un demi-hectare de maraîchage sur une
-          saison de quatre mois.
-        </dd>
-      </div>
-    </dl>
+    <div class="probleme">
+      <dl class="chiffres">
+        <div class="chiffres__ligne revele">
+          <dt class="chiffres__terme">62 %</dt>
+          <dd class="chiffres__note">
+            de l'eau d'irrigation perdue avant les racines, par ruissellement,
+            évaporation et fuite de rigoles, sur une parcelle irriguée à la raie.
+          </dd>
+        </div>
+        <div class="chiffres__ligne revele">
+          <dt class="chiffres__terme">30 %</dt>
+          <dd class="chiffres__note">
+            d'eau appliquée en trop par rapport aux besoins de la culture, en
+            maraîchage de saison chaude, quand on irrigue par habitude.
+          </dd>
+        </div>
+        <div class="chiffres__ligne revele">
+          <dt class="chiffres__terme">4 h</dt>
+          <dd class="chiffres__note">
+            par hectare et par semaine pour décider où et quand arroser, en
+            parcourant la parcelle plante par plante.
+          </dd>
+        </div>
+        <div class="chiffres__ligne revele">
+          <dt class="chiffres__terme">20 000 à 45 000 F CFA</dt>
+          <dd class="chiffres__note">
+            de carburant pour pomper l'eau d'un demi-hectare de maraîchage sur une
+            saison de quatre mois.
+          </dd>
+        </div>
+      </dl>
+
+      <figure class="section__illustration revele">
+        <!-- Photo : tracteur sur parcelle labouree. Illustre le travail
+             agricole que l'irrigation optimisee vient soutenir. -->
+        <picture>
+          <source srcset="assets/img/agriculture_05.webp" type="image/webp">
+          <img
+            src="assets/img/agriculture_05.jpg"
+            alt="Tracteur bleu conduisant sur une parcelle labouree en Afrique de l'Ouest sous un ciel bleu. Illustre la mecanisation agricole dans la region."
+            width="337"
+            height="470"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+        <figcaption>Sur les parcelles de la Boucle du Mouhoun : sans mesure, le carburant pour irriguer part souvent en pure perte.</figcaption>
+      </figure>
+    </div>
 
     <p class="hypothese">
       <strong>Ce sont des hypothèses de travail, pas des résultats AgroTech.</strong>
@@ -452,37 +428,24 @@
             </p>
           </div>
         </div>
-        <figure class="etape__visuel">
-          <svg viewBox="0 0 320 250" width="320" height="250" role="img"
-               aria-labelledby="v-etape1t" aria-describedby="v-etape1d" fill="none">
-            <title id="v-etape1t">Coupe de la parcelle après installation</title>
-            <desc id="v-etape1d">Vue en coupe. Le capteur est planté à trente
-              centimètres de profondeur, entre deux plants. Sa zone d'humidité
-              est représentée par un cercle vert pointillé qui rejoint les racines.</desc>
-
-            <rect x="8" y="92" width="304" height="150" fill="#e9dcc4"/>
-            <path d="M8 92h304" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
-            <path d="M8 176h304M8 212h304" stroke="#c9bca2" stroke-width="1"/>
-            <circle class="zone" cx="160" cy="176" r="30" stroke="#2e6b3a" stroke-width="1.5" stroke-dasharray="5 5"/>
-            <circle class="impulsion" cx="160" cy="176" r="30" fill="none" stroke="#2e6b3a" stroke-width="1.5"/>
-            <rect x="152" y="100" width="16" height="82" rx="3" fill="#263238"/>
-            <rect x="136" y="74" width="48" height="28" rx="5" fill="#263238"/>
-            <circle class="pointe" cx="160" cy="176" r="7" fill="#2e6b3a"/>
-            <g stroke="#b5542c" stroke-width="1.5" stroke-linecap="round">
-              <path d="M160 104c-8 26-9 46-6 68M160 122c7 18 8 34 6 50"/>
-            </g>
-            <g stroke="#2e6b3a" stroke-width="1.75" stroke-linecap="round">
-              <path d="M62 92V54M62 66c-9 0-14-5-15-13 9-1 14 4 15 13ZM62 74c8-1 13-6 14-13-9-1-13 5-14 13Z"/>
-              <path d="M258 92V54M258 66c-9 0-14-5-15-13 9-1 14 4 15 13ZM258 74c8-1 13-6 14-13-9-1-13 5-14 13Z"/>
-            </g>
-            <g stroke="#263238" stroke-width="1.25" stroke-linecap="round">
-              <path d="M100 92v84M93 92h14M93 176h14"/>
-            </g>
-            <text x="84" y="139" font-family="Archivo, sans-serif" font-size="14"
-                  font-weight="600" fill="#263238">30 cm</text>
-          </svg>
+        <figure class="etape__visuel etape__visuel--photo">
+          <!-- Photo : capteur pose en parcelle, a la pose de la sonde.
+               Illustre directement l'etape 01, ou un conseiller vient
+               installer le materiel entre deux rangees. -->
+          <picture>
+            <source srcset="assets/img/agriculture_07.webp" type="image/webp">
+            <img
+              src="assets/img/agriculture_07.jpg"
+              alt="Capteur AgroTech a panneau solaire pose dans une parcelle du Burkina Faso, entre les rangees de cultures, au moment ou le conseiller installe la sonde."
+              width="334"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
           <figcaption>
-            Profondeur de mesure : 30 cm, la zone où vivent les racines en maraîchage.
+            Le capteur est plante entre deux rang&eacute;es, &agrave;&nbsp;30&nbsp;cm de
+            profondeur &mdash; l&agrave; o&ugrave; vivent les racines en maraichage.
           </figcaption>
         </figure>
       </li>
@@ -594,48 +557,21 @@
             </p>
           </div>
         </div>
-        <figure class="etape__visuel" data-anime="infiltration">
-          <svg viewBox="0 0 380 230" width="380" height="230" role="img"
-               aria-labelledby="v-etape3t" aria-describedby="v-etape3d" fill="none">
-            <title id="v-etape3t">Deux profils de sol, comparés</title>
-            <desc id="v-etape3d">À gauche, sans mesure, l'eau ruisselle en surface
-              et les racines restent courtes. À droite, avec le capteur, l'eau
-              s'infiltre jusqu'à la zone d'humidité et les racines la rejoignent.</desc>
-
-            <text x="8" y="20" font-family="Archivo, sans-serif" font-size="13"
-                  font-weight="700" fill="#263238">Sans mesure</text>
-            <rect x="8" y="76" width="164" height="140" fill="#e9dcc4"/>
-            <path d="M8 76h164" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
-            <g fill="#2e6b3a">
-              <path d="M46 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
-              <path d="M90 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
-              <path d="M134 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z"/>
-            </g>
-            <g stroke="#b5542c" stroke-width="1.75" stroke-linecap="round" fill="none">
-              <path d="M28 80c8 6 18 6 26 0M124 80c8 6 18 6 26 0"/>
-              <path d="M60 92v26M60 104c-6 0-9-4-10-10 6-1 9 3 10 10Z"/>
-              <path d="M60 110c6 0 9-4 10-10-6-1-9 3-10 10Z"/>
-            </g>
-            <path d="M8 140h164M8 186h164" stroke="#c9bca2" stroke-width="1"/>
-
-            <path d="M216 12v206" stroke="#c9bca2" stroke-width="1"/>
-
-            <text x="216" y="20" font-family="Archivo, sans-serif" font-size="13"
-                  font-weight="700" fill="#2e6b3a">Avec capteur</text>
-            <rect x="216" y="76" width="156" height="140" fill="#e9dcc4"/>
-            <path d="M216 76h156" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
-            <path class="feuille" d="M256 26c0 0-9 9-9 15a9 9 0 0 0 18 0c0-6-9-15-9-15Z" fill="#2e6b3a"/>
-            <ellipse class="zone-humide" cx="294" cy="128" rx="34" ry="26" fill="#2e6b3a"/>
-            <path d="M294 46v56" stroke="#2e6b3a" stroke-width="2.5" stroke-linecap="round"/>
-            <g stroke="#b5542c" stroke-width="1.75" stroke-linecap="round" fill="none">
-              <path d="M294 86v22M294 100c-8 0-12-6-13-14 8-1 12 5 13 14Z"/>
-              <path d="M294 108c8 0 12-6 13-14-8-1-12 5-13 14Z"/>
-              <path class="racine" pathLength="1" d="M294 128c0 22-2 40-8 58"/>
-              <path class="racine" pathLength="1" d="M294 128c0 24 3 42 10 58"/>
-            </g>
-            <path d="M216 140h156M216 186h156" stroke="#c9bca2" stroke-width="1"/>
-          </svg>
-          <figcaption>La même quantité d'eau, deux façons de la distribuer.</figcaption>
+        <figure class="etape__visuel etape__visuel--photo">
+          <!-- Photo : goutte-a-goutte sur sol rouge. Illustre l'arrosage
+               precis recommande par l'alerte du capteur. -->
+          <picture>
+            <source srcset="assets/img/agriculture_04.webp" type="image/webp">
+            <img
+              src="assets/img/agriculture_04.jpg"
+              alt="Tuyau de goutte-a-goutte deposant des gouttes d'eau precisement sur un sol rouge, entoure de feuilles vertes brillantes. Illustre l'irrigation ciblee recommandee par AgroTech."
+              width="334"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+          <figcaption>L&rsquo;eau descend jusqu&rsquo;aux racines, au lieu de ruisseler entre les rang&eacute;es.</figcaption>
         </figure>
       </li>
     </ol>
@@ -681,6 +617,21 @@
     </p>
 
     <div class="capteur">
+      <figure class="capteur__photo revele">
+        <!-- Photo : capteur solaire AgroTech en gros plan dans le champ. -->
+        <picture>
+          <source srcset="assets/img/agriculture_03.webp" type="image/webp">
+          <img
+            src="assets/img/agriculture_03.jpg"
+            alt="Capteur agricole a panneau solaire plante dans une parcelle de tomates vertes au Burkina Faso, sous un ciel bleu avec des arbres en arriere-plan."
+            width="334"
+            height="470"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+        <figcaption>Le boitier dans son environnement r&eacute;el&nbsp;: &eacute;tanche, autonome, discret.</figcaption>
+      </figure>
       <figure class="capteur__schema revele" data-anime="schema">
         <svg viewBox="0 0 260 380" width="260" height="380" role="img"
              aria-labelledby="v-schematitre" aria-describedby="v-schemadesc" fill="none">
@@ -813,6 +764,22 @@
         </div>
       </dl>
 
+      <figure class="benefices__photo revele">
+        <!-- Photo : cagette de legumes frais, resultat d'une irrigation optimisee. -->
+        <picture>
+          <source srcset="assets/img/agriculture_06.webp" type="image/webp">
+          <img
+            src="assets/img/agriculture_06.jpg"
+            alt="Cagette en bois remplie de tomates rouges, concombres, poivrons colores et legumes-feuilles frais, posee dans une parcelle au coucher de soleil."
+            width="334"
+            height="470"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+        <figcaption>Le r&eacute;sultat d&rsquo;un arrosage au bon moment&nbsp;: des l&eacute;gumes en pleine forme, sans stress hydrique.</figcaption>
+      </figure>
+
       <ul class="benefices__secondaires revele">
         <li>
           <svg class="icone" aria-hidden="true"><use href="#i-horloge"/></svg>
@@ -876,10 +843,23 @@
             d'arrosage entier par semaine.
           </p>
         </blockquote>
-        <div>
-          <p class="temoignage__nom">Alizeta K.</p>
-          <p class="temoignage__etiquette">Maraîchère, 0,4 ha, Nouna</p>
-        </div>
+        <figure class="temoignage__portrait">
+          <picture>
+            <source srcset="assets/img/agriculture_02.webp" type="image/webp">
+            <img
+              src="assets/img/agriculture_02.jpg"
+              alt="Productrice maraichere inspectant ses plants dans sa parcelle au Burkina Faso."
+              width="334"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+          <figcaption>
+            <p class="temoignage__nom">Alizeta K.</p>
+            <p class="temoignage__etiquette">Maraich&egrave;re, 0,4&nbsp;ha, Nouna</p>
+          </figcaption>
+        </figure>
       </li>
       <li class="temoignage revele">
         <blockquote>
@@ -902,10 +882,23 @@
             chiffres, pas d'impressions.
           </p>
         </blockquote>
-        <div>
-          <p class="temoignage__nom">Boureima T.</p>
-          <p class="temoignage__etiquette">Groupement de 11 producteurs, Réo</p>
-        </div>
+        <figure class="temoignage__portrait">
+          <picture>
+            <source srcset="assets/img/agriculture_10.webp" type="image/webp">
+            <img
+              src="assets/img/agriculture_10.jpg"
+              alt="Un producteur et une productrice du Burkina Faso souriant ensemble en regardant des donnees sur une tablette dans leur champ."
+              width="337"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+          <figcaption>
+            <p class="temoignage__nom">Boureima T.</p>
+            <p class="temoignage__etiquette">Groupement de 11 producteurs, R&eacute;o</p>
+          </figcaption>
+        </figure>
       </li>
     </ul>
 
@@ -970,6 +963,22 @@
     <!-- PLACEHOLDER chiffres : hypotheses de travail a valider par l'equipe
          avant diffusion. Ce sont des engagements financiers. -->
     <div class="investisseurs__donnees">
+      <figure class="investisseurs__photo revele">
+        <!-- Photo : producteur consultant des donnees sur tablette en plein champ. -->
+        <picture>
+          <source srcset="assets/img/agriculture_08.webp" type="image/webp">
+          <img
+            src="assets/img/agriculture_08.jpg"
+            alt="Producteur africain en chemise verte consultant un tableau de bord de donnees agricoles sur tablette, debout dans une parcelle de maraichage luxuriante."
+            width="334"
+            height="470"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+        <figcaption>La donn&eacute;e d&rsquo;humidit&eacute;, consultable en temps r&eacute;el sur tablette ou re&ccedil;ue par SMS.</figcaption>
+      </figure>
+
       <div class="tableau-enveloppe revele">
         <table class="tableau">
           <caption>Le marché que nous visons, par couche</caption>
@@ -1107,26 +1116,24 @@
       <button class="video__cadre" id="video-cadre" type="button"
               data-video="" aria-label="Lire la vidéo de présentation d'AgroTech Faso, deux minutes">
         <span class="video__motif" aria-hidden="true">
-          <svg viewBox="0 0 640 360" width="640" height="360" fill="none" preserveAspectRatio="xMidYMid slice">
-            <rect width="640" height="360" fill="#122e1a"/>
-            <g stroke="#2e6b3a" stroke-width="1.25">
-              <path d="M40 300v-56M120 300v-56M200 300v-56M280 300v-56M360 300v-56M440 300v-56M520 300v-56M600 300v-56"/>
-            </g>
-            <path d="M0 300h640" stroke="#74b37f" stroke-width="3"/>
-            <circle cx="330" cy="180" r="76" fill="#0c2113"/>
-            <path d="M330 138c0 0-30 34-30 54a30 30 0 0 0 60 0c0-20-30-54-30-54Z" fill="#74b37f"/>
-            <path d="M300 194h60v22a30 30 0 0 1-60 0Z" fill="#d9773f"/>
-            <path d="M330 194v-16" stroke="#f4ecdd" stroke-width="4" stroke-linecap="round"/>
-            <path d="M330 186c-6 0-10-4-10-10 6-1 9 3 10 10ZM330 186c6 0 10-4 10-10-6-1-9 3-10 10Z" fill="#f4ecdd"/>
-            <g stroke="#d9773f" stroke-width="3" stroke-linecap="round" fill="none">
-              <path class="arc arc--2" pathLength="1" d="M418 168a22 22 0 0 1 30 0"/>
-              <path class="arc arc--3" pathLength="1" d="M406 152a40 40 0 0 1 56 0"/>
-            </g>
-            <g fill="#f4ecdd" opacity="0.08">
-              <circle cx="70" cy="60" r="42"/>
-              <circle cx="580" cy="86" r="30"/>
-            </g>
-          </svg>
+          <!-- Affiche illustrative : parcelle en plein travail. Elle donne le
+               lieu de la video, pas son sujet, qui est la pose du capteur
+               montree a l'etape 01. Decorative : le bouton porte deja un
+               aria-label complet, donc l'image est cachee aux lecteurs
+               d'ecran pour eviter la double annonce. Aucune requete externe
+               avant le clic. -->
+          <picture>
+            <source srcset="assets/img/agriculture_09.webp" type="image/webp">
+            <img
+              src="assets/img/agriculture_09.jpg"
+              alt=""
+              aria-hidden="true"
+              width="334"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
         </span>
         <span class="video__bouton">
           <svg class="icone icone--grand" aria-hidden="true"><use href="#i-lecteur"/></svg>

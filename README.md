@@ -21,16 +21,16 @@ Chercher `PLACEHOLDER` dans `index.html` : six marqueurs, un par sujet.
 
 | Sujet | Valeur actuelle | Où |
 |---|---|---|
-| Téléphone | `+226 52 61 68 67` | 4 liens `tel:`, 2 liens `wa.me`, 4 affichages, JSON-LD |
+| Téléphone | `+226 52 61 68 67` | 3 liens `tel:`, 3 liens `wa.me`, 4 affichages, JSON-LD |
 | Adresse | Avenue de la Nation, Bobo-Dioulasso | section contact |
 | Réseaux | `facebook.com/agrotechfaso`, `instagram.com/agrotechfaso` | section contact |
 | Vidéo | `data-video=""` | bouton `#video-cadre` |
 | Équipe | 3 monogrammes, noms, fonctions, parcours | section équipe |
 | Chiffres | prix, ROI, levée, volumes, répartition des fonds | section investisseurs |
 
-Le numéro se termine par quatre zéros : il n'appartient à personne, il ne sonne
-chez personne. Les liens WhatsPoint et téléphone sont de vrais liens, mais
-inoffensifs tant qu'ils ne sont pas remplacés.
+Les liens WhatsApp et téléphone sont de vrais liens, mais ils ne sont pas
+vérifiés : le numéro et le compte WhatsApp doivent être confirmés par
+l'équipe avant diffusion.
 
 Les chiffres sont des hypothèses de travail. La section qui les présente le dit
 explicitement au visiteur, mais ce sont des engagements financiers : ils
@@ -42,16 +42,40 @@ plaisent.
 ```
 index.html              la page entière
 favicon.svg             icône de onglet
-assets/css/main.css     une feuille, 20 sections numérotées
+assets/css/main.css     une feuille, 21 sections numérotées
 assets/js/main.js       7 comportements, sans dépendance
 assets/fonts/           Fraunces (titres) et Archivo (texte), sous-ensemble latin
-assets/img/             logos, aperçu social
+assets/img/             logos, aperçu social, 10 photos en WebP + JPEG
+10_images_agriculture/  les originaux PNG, non publiés
 ```
 
 `assets/img/` contient des variantes qui ne sont pas toutes référencées par la
 page : `logo-dark.svg`, `logo-mark-dark.svg` et `logo-source.svg` servent aux
 fonds sombres et à l'impression, `apercu-partage.svg` est la version vectorielle
-de l'aperçu social. À garder pour la coherence de la marque.
+de l'aperçu social. À garder pour la cohérence de la marque.
+
+Les dix photographies sont publiées deux fois : `agriculture_NN.webp` (543 Ko au
+total) et `agriculture_NN.jpg` (518 Ko). Un `<picture>` sert le WebP aux
+navigateurs qui le lisent et le JPEG aux autres — un seul des deux est jamais
+téléchargé. Les originaux sont restés dans `10_images_agriculture/`, hors de
+ce qui est mis en ligne.
+
+### Les photos sont toutes portrait
+
+Les dix font 334 × 470 px, ratio 0,711. Deux conséquences dans `main.css`,
+section 21 :
+
+- **Aucun cadre ne force un ratio différent.** Une photo dans un cadre de
+  ratio autre, avec `object-fit: cover`, se fait rogner — jusqu'à 82 % de sa
+  hauteur dans la version précédente. Les cadres reprennent donc
+  `--ratio-photo`, et rien n'est rogné.
+- **Aucune photo n'est agrandie au-delà de 26rem.** Les originaux font 334 px
+  de large ; au-delà de 416 px, le navigateur étire et la photo devient
+  floue. Les blocs photo pleine largeur sont donc bornés et centrés.
+
+L'affiche vidéo est le cas particulier : le cadre du lecteur est en 16/9, ce
+qu'aucune photo portrait ne peut remplir. Elle est posée dedans sur le fond
+vert nuit, `object-fit: contain`, jamais rognée.
 
 ## Couleurs
 
@@ -198,9 +222,11 @@ qui est vérifiable sans un écran ; la mise en page reste à confirmer à l'œi
 | Règles CSS orphelines, classes sans style | aucune |
 | Débordement horizontal à 360, 768, 1440 px | aucun |
 | Syntaxe JavaScript | valide |
-| Animations réellement en cours | 12 cibles, horloge pilotée |
-| Séquences au défilement | les 4 se déclenchent |
+| Animations réellement en cours | 9 cibles, horloge pilotée |
+| Séquences au défilement | les 3 se déclenchent |
 | Mouvement réduit | 0 animation, 0 bloc invisible, dessins complets |
+| Ratio d'affichage des 10 photos | 0,711 à 360, 768, 1024 et 1440 px — aucune rognée |
+| Agrandissement des 10 photos | 1,25x au plus — aucune image étirée |
 
 Le test de débordement mérite une précision : injecter un débordement volontaire
 de 500 px ne change pas la largeur d'une capture headless. Une capture ne prouve
@@ -212,6 +238,51 @@ l'horloge d'animation reste figée : lire une propriété à deux instants rendr
 la même valeur, que l'animation avance ou non. Les contrôles pilotent donc
 l'horloge à la main avec `currentTime` et vérifient que la propriété change
 vraiment entre le début et la fin.
+
+Les neuf cibles animées et les trois séquences correspondent à ce que la page
+contient maintenant. Les illustrations du hero et de l'infiltration ont été
+remplacées par des photographies ; leurs boucles d'ambiance et la séquence
+associée ont été retirées avec elles. Une boucle sans dessin à animer est du
+code mort : elle annonce un mouvement qui n'a plus d'objet.
+
+## Les photographies
+
+Dix images ont été ajoutées après coup, et leur intégration a cassé la mise en
+page de deux façons.
+
+**Les ratios annoncés étaient faux.** Le HTML déclarait `668 × 890` pour des
+images de `334 × 470` — un ratio de 0,751 contre 0,711. Le navigateur réservait
+donc une place trop large avant même d'appliquer le CSS. Sur l'affiche vidéo,
+`640 × 360` était annoncé pour une image portrait : 150 % d'écart.
+
+**Les cadres ne correspondaient à aucun ratio.** Les photos étaient bornées par
+une hauteur maximale — 1312 × 420, 1312 × 360 — avec `object-fit: cover`. Le
+navigateur rognait alors 77 à 82 % de la hauteur : il ne restait qu'un cinquième
+de chaque image, et les sujets placées au centre se retrouvaient coupés. Les
+`object-position` qui tentaient de rattraper cela (`center 20 %`, `center 40 %`)
+ne pouvaient qu'arbitrer entre deux parties perdues.
+
+La correction est une règle, appliquée aux dix : **le cadre prend le ratio de la
+photo, jamais l'inverse.** Les attributs `width` et `height` valent la taille
+réelle, et `aspect-ratio: var(--ratio-photo)` remplace toute hauteur maximale.
+Rien n'est rogné, donc rien ne peut disparaître.
+
+Un second problème n'apparaît qu'une fois le premier corrigé. Les sources font
+334 px de large. Sans borne, le navigateur les étire : sur 1440 px, une photo
+s'affichait sur 1184 px, soit 3,5 fois l'original. Les blocs photo pleine
+largeur sont donc bornés à 26rem — 1,25 fois l'original — et centrés.
+
+L'affiche vidéo est le cas qui ne se résout pas de la même façon : le cadre du
+lecteur est en 16/9, ce qu'aucune photo portrait ne peut remplir. Elle est posée
+dedans sur le fond vert nuit, en `contain`, entière. On renonce à remplir le
+cadre plutôt qu'à rogner la photo.
+
+Les poids ont été divisés par cinq au passage : 2,63 Mo de PNG devenaient
+2,65 Mo, remplacés par 543 Ko de WebP et 518 Ko de JPEG. La qualité a été
+contrôlée image par image, en comparant chaque encodage à l'original pixel par
+pixel — le PSNR le plus bas est de 38,0 dB, seuil au-delà duquel la différence
+est invisible à taille réelle. Un encodage qui sort sous ce seuil est refusé,
+et le script s'arrête sans rien écrire.
 
 ## Limites de la vérification
 

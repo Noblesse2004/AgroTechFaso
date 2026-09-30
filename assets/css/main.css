@@ -39,7 +39,10 @@
      15 Questions frequentes
      16 Contact
      17 Pied de page
-     18 Impressions
+     18 Complementaires
+     19 Mouvement
+     20 Impressions
+     21 Photos agriculture
    ========================================================================== */
 
 /* ==========================================================================
@@ -816,9 +819,42 @@ select {
    07  Probleme — grands chiffres typographiques
    ========================================================================== */
 
-.chiffres {
+/* Les chiffres a gauche, la photo et sa phrase a droite. Sur petit ecran la
+   photo repasse au-dessus et dans le flux normal : une colonne de 26rem
+   seriendrait a couper le texte en deux colonnes et a laisser la colonne de
+   droite vide sous le texte. */
+.probleme {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e5);
   margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.chiffres {
+  margin-top: 0;
   border-top: 1px solid var(--filet);
+}
+
+/* 56rem, et non 64rem. A 64rem la bascule n'atteignait que les ecrans de plus
+   de 1024 px de fenetre : un portable 1024xk, tres courant, restait sur une
+   seule colonne. En dessous de 56rem la colonne de droite ferait moins de
+   300 px, et la photo y serait trop etroite pour valoir le decalage. */
+@media (min-width: 56rem) {
+  .probleme {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  /* La photo garde sa largeur maximale de 26rem et se colle au bord droit :
+     c'est ce decalage qui fait respirer le texte descriptif a gauche. */
+  .probleme .section__illustration {
+    margin-top: 0;
+  }
+
+  .probleme .section__illustration img {
+    margin-inline: 0 auto;
+  }
 }
 
 .chiffres__ligne {
@@ -2333,6 +2369,15 @@ select {
   inset: 0;
 }
 
+/* <picture> n'est qu'un conteneur de sources : il ne doit pas s'intercaler
+   dans la mise en page. Sans display:contents, il devient l'element de la
+   grille, sa hauteur reste automatique, et le max-height:100% pose sur le
+   <img> se retrouve resolu contre une hauteur indefinie — donc ignore. La
+   photo deborderait alors du cadre au lieu de s'y ranger. */
+.video__motif picture {
+  display: contents;
+}
+
 .video__motif svg {
   display: block;
   width: 100%;
@@ -2680,12 +2725,7 @@ select {
   transform-origin: center;
 }
 
-.canal__courant {
-  stroke-dasharray: 18 18;
-}
-
-.trace,
-.racine {
+.trace {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
@@ -2722,14 +2762,6 @@ select {
 
 /* --- Images cle ----------------------------------------------------------- */
 
-@keyframes agro-emission {
-  0%   { stroke-dashoffset: 1; opacity: 0; }
-  12%  { opacity: 0.9; }
-  42%  { stroke-dashoffset: 0; opacity: 0.9; }
-  72%  { stroke-dashoffset: 0; opacity: 0; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
-}
-
 @keyframes agro-balanage {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -2744,11 +2776,6 @@ select {
 @keyframes agro-trace {
   0%   { stroke-dashoffset: 1; }
   100% { stroke-dashoffset: 0; }
-}
-
-@keyframes agro-courant {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -36; }
 }
 
 @keyframes agro-respiration {
@@ -2812,27 +2839,13 @@ select {
 /* Lentes sur dessein. Une lecture en parallele d'une animation rapide est
    Impossible : le mouvement doit se voir sans qu'on ait a le remarquer. */
 
+/* Note : les boucles qui animaient le canal d'eau du hero, les trois arcs
+   d'emission et la zone humide de l'infiltration ont ete retirees avec leurs
+   dessins. Le hero et l'etape 3 sont des photographies, et les elements
+   d'illustration correspondants ont disparu du HTML. Les garder
+   laisserait des selecteurs sans cible, et le fichier de mouvement
+   verrait des animations dont l'etat de repos n'existe plus. */
 @media (prefers-reduced-motion: no-preference) {
-
-  /* Le canal d'eau du hero : un courant continu, 36 unites de course pour un
-     motif de 36, donc la boucle est invisible. */
-  .canal__courant {
-    animation: agro-courant 3.6s linear infinite;
-  }
-
-  /* Les trois arcs partent l'un apres l'autre : une mesure qui s'emitte. */
-  .arc {
-    stroke-dasharray: 1;
-    opacity: 0;
-  }
-
-  .arc--1 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) infinite; }
-  .arc--2 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) 0.45s infinite; }
-  .arc--3 { animation: agro-emission 3.4s cubic-bezier(0.3, 0, 0.2, 1) 0.9s infinite; }
-
-  .hero__visuel .impulsion {
-    animation: agro-impulsion 3.4s cubic-bezier(0.2, 0, 0.2, 1) 1.15s infinite;
-  }
 
   /* La zone de mesure balaie. Un cercle en pointilles qui tourne se lit
      comme un balayage, ce qu'il est. */
@@ -2842,19 +2855,17 @@ select {
     animation: agro-balanage 18s linear infinite;
   }
 
-  .etape__visuel .impulsion {
-    animation: agro-impulsion 4.2s cubic-bezier(0.2, 0, 0.2, 1) infinite;
-  }
-
+  /* La zone d'humidite respire dans le schema du capteur : le depictif
+     reste anime la ou il explique quelque chose. */
   .capteur__schema .impulsion {
     animation: agro-impulsion 4.2s cubic-bezier(0.2, 0, 0.2, 1) 2.1s infinite;
   }
 
-  /* La zone humide respire, lentement, comme une reserve qui se vide. */
-  .zone-humide {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: agro-respiration 6.5s ease-in-out infinite;
+  /* La tete de lecture, invisible au repos, s'illumine une fois le schema
+     dans le viewport. La sequence[data-anime="schema"] plus bas s'en charge ;
+     ici on ne fixe que l'etat de depart. */
+  .capteur__schema .zone {
+    animation-duration: 14s;
   }
 }
 
@@ -2895,22 +2906,11 @@ select {
     animation: agro-vibration 540ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 320ms both;
   }
 
-  /* L'eau descend jusqu'a la zone, puis les racines courent la rejoindre. */
-  [data-anime="infiltration"].anime-depart .zone-humide {
-    animation: agro-point 760ms cubic-bezier(0.2, 0, 0.2, 1) 120ms both;
-  }
-
-  [data-anime="infiltration"].anime-depart .racine {
-    animation: agro-trace 720ms cubic-bezier(0.4, 0, 0.3, 1) both;
-  }
-
-  [data-anime="infiltration"].anime-depart .racine:nth-child(3) {
-    animation-delay: 220ms;
-  }
-
-  [data-anime="infiltration"].anime-depart .feuille {
-    animation: agro-respiration 3.4s ease-in-out 900ms infinite;
-  }
+  /* La sequence « infiltration » a ete retiree avec son dessin : l'etape 3
+     est desormais une photographie, et le markup ne porte plus
+     data-anime="infiltration". Sans cette sequence, la sequence « schema » du
+     capteur reste la seule qui montre comment l'eau descend jusqu'a la zone
+     de mesure. */
 
   /* L'impulsion parcourt la tige, du boîtier vers la zone de mesure. */
   [data-anime="schema"].anime-depart .descente {
@@ -2933,34 +2933,11 @@ select {
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /* Au survol du hero, la transmission s'accentue et l'eau circule plus vite. */
-  .hero__visuel:hover .arc,
-  .hero__visuel:focus-within .arc {
-    stroke-width: 3.5;
-  }
-
-  .hero__visuel:hover .canal__courant,
-  .hero__visuel:focus-within .canal__courant {
-    animation-duration: 1.6s;
-  }
-
   /* Le bouton de lecture respire au repos, puis s'ouvre au survol. C'est
      l'appel le plus cher de la page : il doit se voir sans crier. */
   .video__bouton {
     transform-box: fill-box;
     animation: agro-respiration 4.2s ease-in-out infinite;
-  }
-
-  /* Les arcs de la facade video reprennent le meme langage que le hero : la
-     scene montre le capteur, elle emet aussi. */
-  .video__cadre:hover .arc,
-  .video__cadre:focus-visible .arc {
-    animation: agro-emission 1.5s cubic-bezier(0.3, 0, 0.2, 1) infinite;
-  }
-
-  .video__cadre:hover .arc--3,
-  .video__cadre:focus-visible .arc--3 {
-    animation-delay: 0.25s;
   }
 
   .video__cadre:hover .video__bouton,
@@ -2997,10 +2974,6 @@ select {
   [data-anime="alerte"]:hover .telephone__coque,
   [data-anime="alerte"]:focus-within .telephone__coque {
     animation: agro-vibration 540ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 120ms both;
-  }
-
-  [data-anime="infiltration"]:hover .zone-humide {
-    animation-duration: 2.4s;
   }
 
   [data-anime="schema"]:hover .descente {
@@ -3060,3 +3033,352 @@ select {
     content: none;
   }
 }
+
+/* ==========================================================================
+   21  Photos agriculture
+
+   Regle de la section, et elle est unique : les dix photographies font
+   334 x 470, soit un ratio de 0,711. Ce sont des images portrait.
+
+   L'integration precedente les plaçait dans des cadres paysage Bornés par une
+   hauteur maximale -- 1312 x 420, 1312 x 360 -- et demandait object-fit:
+   cover. Le navigateur rognait alors 77 a 82 % de la hauteur. Il ne restait
+   qu'un cinquieme de chaque photo, et les sujets places au centre se
+   retrouvaient coupes. C'etait la source du "on ne voit pas tout".
+
+   La correction tient en une decision : le cadre prend le ratio de la photo,
+   et non l'inverse. Aucun recadrage, donc rien ne peut disparaitre.
+
+   Pourquoi --ratio-photo et non un nombre ecrit : les dix images sont a
+   334 x 470, sauf deux a 337 x 470. L'ecart est negligeable, mais la
+   variable le rend explicite et modifiable en un seul endroit.
+   ========================================================================== */
+
+:root {
+  --ratio-photo: 334 / 470; /* 0,711 - le ratio reel des photographies */
+  /* Les originaux font 334 px de large. Au-dela d'environ 1,25 fois cette
+     largeur, le navigateur agreandit et la photo devient floue. Les photos
+     pleine page sont donc bornees, puis centrees : on prefere une photo
+     nette entouragee d'espace a une photo etiree. 26rem = 416 px, soit 1,25x. */
+  --photo-largeur-max: 26rem;
+}
+
+/* --- Hero photo ------------------------------------------------------- */
+.hero__visuel--photo {
+  margin: 0;
+}
+
+.hero__photo-cadre {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  line-height: 0; /* supprime l'espace sous l'image inline */
+}
+
+.hero__photo-cadre img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  /* cover ne rogne plus rien : le cadre a le ratio de l'image. On le garde
+     seulement pour la securite, si une image plus large est ajoutee plus
+     tard -- elle sera rognee proprement plutot que deforcee. */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Badge humidité flottant — copie visuelle de la notification SMS */
+.hero__photo-badge {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--vert-nuit);
+  color: var(--creme);
+  border-radius: 6px;
+  padding: 0.55rem 0.8rem;
+  font-family: var(--police-texte);
+  font-size: 0.875rem;
+  font-weight: 600;
+  /* Ombre simple. La version precedente empilait 4px de flou et 16px de
+     portee en une valeur unique -- rgba(18,46,26,0.5) -- ce que la DA
+     interdit. Le role du badge se joue sur le fond vert nuit, pas sur
+     l'ombre. */
+  box-shadow: 0 2px 6px rgba(12, 33, 19, 0.35);
+  pointer-events: none;
+}
+
+.hero__photo-badge-puce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  background: var(--vert);
+  border-radius: 6px;
+  color: var(--creme);
+}
+
+.hero__photo-badge-puce .icone {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.hero__photo-badge-texte {
+  line-height: 1.3;
+}
+
+@media (min-width: 40rem) {
+  .hero__photo-badge {
+    left: auto;
+    bottom: 1.4rem;
+    right: 1.4rem;
+    width: max-content;
+    max-width: calc(100% - 2.8rem);
+  }
+}
+
+/* --- Section illustrations (Problème, Bénéfices) ----------------------- */
+.section__illustration {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Photo de section : elle ne doit pas s'etirer sur toute la largeur. Les
+   originaux font 334 px ; au-dela de 26rem elles seraient agrandies et
+   floues. On borne donc la largeur et on centre. */
+.section__illustration img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+.section__illustration figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+/* --- Étapes photos (remplacent les SVG illustratifs) ------------------- */
+.etape__visuel--photo {
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.etape__visuel--photo img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+.etape__visuel--photo figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+/* --- Capteur photo (à côté du schéma SVG) ------------------------------ */
+.capteur__photo {
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.capteur__photo img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+.capteur__photo figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+@media (min-width: 58rem) {
+  /* Sur grand ecran, la photo capteur se centre au-dessus du duo schema +
+     faits, pas a cote. La largeur est deja bornee par la regle de base ;
+     il ne reste qu'a centrer le bloc, figure comprise, pour que la legende
+     reste sous la photo et non decalee par un bloc plus large qu'elle. */
+  .capteur__photo {
+    max-width: var(--photo-largeur-max);
+    margin-inline: auto;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+/* --- Bénéfices photo --------------------------------------------------- */
+.benefices__photo {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.benefices__photo img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+.benefices__photo figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fz-petit);
+  color: var(--encre-douce);
+}
+
+/* --- Portraits témoignages --------------------------------------------- */
+.temoignage__portrait {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Les deux portraits de temoignage sont eux aussi des 334 x 470. Le ratio
+   3/4 tranche 5 % de la hauteur : sur un visage, ces 5 % suffisent a
+   couper le menton. On remet le ratio reel. */
+.temoignage__portrait img {
+  width: 100%;
+  max-width: 14rem;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
+  display: block;
+}
+
+.temoignage__portrait figcaption {
+  text-align: left;
+}
+
+@media (min-width: 58rem) {
+  .temoignage__portrait {
+    align-items: flex-end;
+  }
+
+  .temoignage__portrait figcaption {
+    text-align: right;
+  }
+}
+
+/* --- Investisseurs photo ------------------------------------------------ */
+.investisseurs__photo {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.investisseurs__photo img {
+  width: 100%;
+  max-width: var(--photo-largeur-max);
+  margin-inline: auto;
+  height: auto;
+  aspect-ratio: var(--ratio-photo);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 6px;
+}
+
+.investisseurs__photo figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--fz-petit);
+  color: var(--vert-clair);
+}
+
+/* --- Affiche vidéo (remplace le SVG placeholder) ----------------------- */
+/* L'affiche video : un cadre 16/9 impose par le lecteur, et une photo
+   portrait de 334 x 470. Les deux formes sont incompatibles : en cover
+   plein cadre, la photo perd 60 % de sa hauteur et le sujet sort du cadre.
+
+   Deux solutions, et le choix depend de ce que doit montrer la facade.
+
+   Sur petit ecran, le cadre est large et bas. La photo est alors la seule
+   chose a voir : on la cale dans la bande, ce qui la rogne, mais le ratio
+   du lecteur est respecte et le bouton reste lisible.
+
+   Sur grand ecran, on refuse de rogner. La photo garde son ratio, bornee a
+   sa largeur naturelle pour ne pas devenir floue, et le cadre 16/9
+   presente cette photo au centre, encadree par le fond vert nuit. La facade
+   dit alors deux choses justes : voici le terrain, voici la video qui sera
+   lancee. */
+.video__motif {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Sous 48rem, l'affiche remplit le cadre 16/9 et le sujet est cadre. Le
+   cadre reste bien 16/9 — c'est la forme du contenu qui sera lance — mais
+   l'image est bornee a 24rem : au-dela, le navigateur agreandrait un
+   original de 334 px et la photo deviendrait floue. */
+/* La photo ne remplit jamais le cadre : elle est posee dedans, entouree du
+   fond vert nuit. C'est le seul reglage honnete pour un portrait dans une
+   boite 16/9 — cover promettrait de la montrer entier en en rognant 60 %.
+   Elle est jamais agrandie : au-dela de 21rem le navigateur etirerait un
+   original de 334 px. Elle ne peut pas non plus depasser la hauteur du
+   cadre, sans quoi elle deborderait par-dessus le bouton de lecture. */
+.video__motif img {
+  width: auto;
+  height: auto;
+  max-width: 21rem;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center 38%;
+  display: block;
+  margin-inline: auto;
+  border-radius: inherit;
+}
+
+/* La facade encadre la photo sans jamais la rogner, a toutes les largeurs.
+   Un second bloc media n'apporterait rien : la regle unique ci-dessus tient
+   deja dans un cadre etroit comme dans un cadre large. */
+
+/* Adaptation impression : masquer les photos décoratives */
+@media print {
+  .hero__photo-badge,
+  .capteur__photo,
+  .benefices__photo,
+  .investisseurs__photo,
+  .temoignage__portrait img {
+    display: none;
+  }
+}
+
