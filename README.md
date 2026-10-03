@@ -17,13 +17,13 @@ construction pour cela coûterait plus qu'elle ne Rapporterait.
 
 ## Avant la mise en ligne
 
-Chercher `PLACEHOLDER` dans `index.html` : six marqueurs, un par sujet.
+Chercher `PLACEHOLDER` dans `index.html` : un marqueur par sujet encore à confirmer.
 
 | Sujet | Valeur actuelle | Où |
 |---|---|---|
 | Téléphone | `+226 52 61 68 67` | 3 liens `tel:`, 3 liens `wa.me`, 4 affichages, JSON-LD |
 | Adresse | Avenue de la Nation, Bobo-Dioulasso | section contact |
-| Réseaux | `facebook.com/agrotechfaso`, `instagram.com/agrotechfaso` | section contact |
+| Réseaux | `facebook.com/profile.php?id=61595041772248`, `instagram.com/agrotechfaso_m1` — comptes réels, en place | section contact, JSON-LD |
 | Vidéo | `assets/video/agrotech-faso-presentation.mp4` | bouton `#video-cadre`, voir « La vidéo de présentation » |
 | Équipe | 3 monogrammes, noms, fonctions, parcours | section équipe |
 | Chiffres | prix, ROI, levée, volumes, répartition des fonds | section investisseurs |
