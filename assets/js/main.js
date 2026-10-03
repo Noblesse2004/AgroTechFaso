@@ -7,7 +7,7 @@
      1. Menu mobile accessible (ouverture, fermeture, piege de focus, Echap).
      2. Apparition des blocs au defilement, desactivee si le visiteur prefere
         moins d'animations.
-     3. Facade video : aucune requete vers la plateforme tierce avant le clic.
+     3. Facade video : la video n'est chargee qu'au clic.
      4. Formulaire de contact : verifie dans le navigateur, affiche un
         recapitulatif et prepare un message. Aucun serveur n'est appele.
      5. FAQ : une seule reponse ouverte a la fois.
@@ -189,10 +189,13 @@
   /* ---------------------------------------------------------------------------
      3. Facade video
      ---------------------------------------------------------------------------
-     Remplacer l'attribut data-video du bouton #video-cadre par l'identifiant de
-     la video reelle, par exemple data-video="aBcD1234". Tant qu'il est vide, un
-     message s'affiche a la place du lecteur : mieux vaut un avertissement
-     honnete qu'un embed casse.
+     Deux sources possibles sur le bouton #video-cadre :
+       data-fichier  un MP4 servi avec le site (cas actuel), lu par <video> ;
+       data-video    un identifiant YouTube, lu dans un iframe nocookie.
+     Le fichier l'emporte s'il est renseigne. Dans les deux cas, rien n'est
+     telecharge avant le clic. Si les deux sont vides, un message s'affiche a
+     la place du lecteur : mieux vaut un avertissement honnete qu'un embed
+     casse.
      --------------------------------------------------------------------- */
 
   var EMPLACEMENT_LECTEUR =
@@ -205,7 +208,35 @@
     }
 
     cadre.addEventListener("click", function () {
+      var fichier = (cadre.getAttribute("data-fichier") || "").trim();
       var identifiant = (cadre.getAttribute("data-video") || "").trim();
+
+      if (fichier) {
+        var lecteurLocal = document.createElement("div");
+        lecteurLocal.className = "video__lecteur";
+
+        var video = document.createElement("video");
+        video.src = fichier;
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "auto";
+        video.setAttribute("aria-label", cadre.getAttribute("aria-label") || "");
+        var affiche = cadre.getAttribute("data-affiche");
+        if (affiche) {
+          video.poster = affiche;
+        }
+
+        lecteurLocal.appendChild(video);
+        cadre.parentNode.replaceChild(lecteurLocal, cadre);
+        video.focus();
+        // Le clic du visiteur autorise la lecture avec le son. Si le
+        // navigateur refuse quand meme, les commandes restent disponibles.
+        var lecture = video.play();
+        if (lecture && lecture.catch) {
+          lecture.catch(function () {});
+        }
+        return;
+      }
 
       if (!identifiant) {
         var avis = document.createElement("p");
@@ -225,7 +256,7 @@
 
       var iframe = document.createElement("iframe");
       iframe.src = EMPLACEMENT_LECTEUR + encodeURIComponent(identifiant) + "?rel=0";
-      iframe.title = "AgroTech Faso en deux minutes";
+      iframe.title = "Présentation d'AgroTech Faso";
       iframe.loading = "lazy";
       iframe.allow = "accelerometer; encrypted-media; picture-in-picture";
       iframe.allowFullscreen = true;

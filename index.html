@@ -8,7 +8,7 @@
 <meta name="author" content="AgroTech Faso">
 <meta name="theme-color" content="#fbf8f2">
 <meta name="color-scheme" content="light">
-<link rel="canonical" href="https://agrotech-faso.bf/">
+<link rel="canonical" href="https://agrotechfaso.vercel.app/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/logo-mark.svg">
 <link rel="stylesheet" href="assets/css/main.css">
@@ -27,7 +27,8 @@
 
      adresse        Avenue de la Nation, Bobo-Dioulasso
      reseaux        facebook.com/agrotechfaso, instagram.com/agrotechfaso
-     video          data-video="" sur #video-cadre, identifiant YouTube
+     video          assets/video/agrotech-faso-presentation.mp4, source dans
+                    video-source/ (ou data-video : identifiant YouTube)
      equipe         noms, fonctions et portraits des trois personnes
      chiffres       prix, ROI, levee de fonds, volumes, repartition des fonds
 
@@ -36,22 +37,22 @@
      toute diffusion : ce sont des engagements financiers, pas de la decoration.
      ======================================================================== -->
 
-<!-- Partage social. L'adresse et l'image sont a remplacer par celles du site
-     reellement mis en ligne. -->
+<!-- Partage social. Site en ligne sur agrotechfaso.vercel.app : a changer si
+     un nom de domaine propre est achete. -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="AgroTech Faso">
 <meta property="og:title" content="AgroTech Faso — Arrosez au bon moment, récoltez plus">
 <meta property="og:description" content="Capteurs d'humidité du sol pour les petits producteurs du Burkina Faso. Une alerte simple quand il faut arroser, par téléphone ou par SMS, même sans internet.">
-<meta property="og:url" content="https://agrotech-faso.bf/">
-<meta property="og:image" content="https://agrotech-faso.bf/assets/img/apercu-partage.png">
+<meta property="og:url" content="https://agrotechfaso.vercel.app/">
+<meta property="og:image" content="https://agrotechfaso.vercel.app/assets/img/apercu-partage.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Parcelle cultivée vue du ciel, avec un capteur AgroTech Faso planté au centre, sur fond crème.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AgroTech Faso — Arrosez au bon moment, récoltez plus">
 <meta name="twitter:description" content="Capteurs d'humidité du sol pour les petits producteurs du Burkina Faso. Une alerte simple quand il faut arroser, par téléphone ou par SMS.">
-<meta name="twitter:image" content="https://agrotech-faso.bf/assets/img/apercu-partage.png">
+<meta name="twitter:image" content="https://agrotechfaso.vercel.app/assets/img/apercu-partage.png">
 
 <!-- Donnees structurees. A completer avec l'adresse reelle, le telephone et
      les liens sociaux reels avant la mise en ligne. -->
@@ -60,12 +61,12 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AgroTech Faso",
-  "url": "https://agrotech-faso.bf/",
+  "url": "https://agrotechfaso.vercel.app/",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://agrotech-faso.bf/assets/img/logo.svg"
+    "url": "https://agrotechfaso.vercel.app/assets/img/logo.svg"
   },
-  "image": "https://agrotech-faso.bf/assets/img/apercu-partage.png",
+  "image": "https://agrotechfaso.vercel.app/assets/img/apercu-partage.png",
   "description": "AgroTech Faso installe des capteurs d'humidité du sol dans les parcelles agricoles du Burkina Faso et alerte les producteurs par téléphone ou par SMS lorsqu'il faut irriguer.",
   "foundingDate": "2026",
   "foundingLocation": {
@@ -1102,19 +1103,23 @@
 <section class="section" id="video" aria-labelledby="titre-video">
   <div class="conteneur">
     <p class="surtitre revele"><span>07</span> Présentation</p>
-    <h2 class="section__titre" id="titre-video">Deux minutes sur une parcelle.</h2>
+    <h2 class="section__titre" id="titre-video">AgroTech Faso en une minute et demie.</h2>
     <p class="section__chapeau revele">
-      Nous allons dans une parcelle de Nouna, nous plantons le capteur devant la
-      caméra, et nous attendons la première alerte. Rien n'est filmé en studio.
+      Le problème, le capteur, les résultats du pilote, le modèle et ce que nous
+      cherchons à financer. Tout est écrit à l'écran : elle se suit aussi sans
+      le son.
     </p>
 
     <div class="video">
-      <!-- PLACEHOLDER video : renseignez data-video avec l'identifiant YouTube,
-           ex. data-video="aBcD1234". Tant qu'il reste vide, un clic affiche un
-           message de repli honnete au lieu d'un lecteur casse.
-           Façade statique : aucune requête vers YouTube avant le clic. -->
+      <!-- Video servie avec le site : data-fichier. Elle est produite a partir
+           de video-source/scenes.html, voir le README. Pour passer a YouTube,
+           videz data-fichier et renseignez data-video avec l'identifiant.
+           Façade statique : rien n'est téléchargé avant le clic. -->
       <button class="video__cadre" id="video-cadre" type="button"
-              data-video="" aria-label="Lire la vidéo de présentation d'AgroTech Faso, deux minutes">
+              data-fichier="assets/video/agrotech-faso-presentation.mp4"
+              data-affiche="assets/video/agrotech-faso-presentation.jpg"
+              data-video=""
+              aria-label="Lire la vidéo de présentation d'AgroTech Faso, une minute vingt-deux">
         <span class="video__motif" aria-hidden="true">
           <!-- Affiche illustrative : parcelle en plein travail. Elle donne le
                lieu de la video, pas son sujet, qui est la pose du capteur
@@ -1139,24 +1144,25 @@
           <svg class="icone icone--grand" aria-hidden="true"><use href="#i-lecteur"/></svg>
         </span>
         <span class="video__affiche">
-          <span class="video__titre">AgroTech Faso en deux minutes</span>
-          <span class="video__duree">2 min 14 s · Sous-titres en français</span>
+          <span class="video__titre">AgroTech Faso en une minute et demie</span>
+          <span class="video__duree">1 min 22 s · Texte à l'écran, en français</span>
         </span>
       </button>
 
       <div class="video__texte">
         <p>
-          La vidéo montre une pose réelle, du début à la fin : le choix du point
-          de mesure, l'enfoncement de la sonde, la photo de la parcelle, et
-          l'alerte reçue le lendemain matin.
+          La vidéo reprend ce que dit cette page, dans l'ordre : l'eau perdue
+          faute de mesure, les trois étapes du capteur, les chiffres du pilote
+          2025 sur 38 parcelles, l'abonnement, et la levée de 34 millions de
+          F CFA. Elle est faite pour être partagée.
         </p>
         <p>
           Si vous préférez lire, le <a href="#capteur">schéma du capteur</a> et
           les <a href="#etapes">trois étapes</a> donnent la même information.
         </p>
         <p class="video__note">
-          La vidéo est hébergée sur une plateforme tierce. Rien n'est chargé ni
-          envoyé à cette plateforme tant que vous n'avez pas cliqué sur l'image.
+          La vidéo est servie par ce site, sans plateforme tierce. Elle ne se
+          télécharge que si vous cliquez sur l'image : environ 6 Mo.
         </p>
       </div>
     </div>

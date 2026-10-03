@@ -24,7 +24,7 @@ Chercher `PLACEHOLDER` dans `index.html` : six marqueurs, un par sujet.
 | Téléphone | `+226 52 61 68 67` | 3 liens `tel:`, 3 liens `wa.me`, 4 affichages, JSON-LD |
 | Adresse | Avenue de la Nation, Bobo-Dioulasso | section contact |
 | Réseaux | `facebook.com/agrotechfaso`, `instagram.com/agrotechfaso` | section contact |
-| Vidéo | `data-video=""` | bouton `#video-cadre` |
+| Vidéo | `assets/video/agrotech-faso-presentation.mp4` | bouton `#video-cadre`, voir « La vidéo de présentation » |
 | Équipe | 3 monogrammes, noms, fonctions, parcours | section équipe |
 | Chiffres | prix, ROI, levée, volumes, répartition des fonds | section investisseurs |
 
@@ -46,6 +46,8 @@ assets/css/main.css     une feuille, 21 sections numérotées
 assets/js/main.js       7 comportements, sans dépendance
 assets/fonts/           Fraunces (titres) et Archivo (texte), sous-ensemble latin
 assets/img/             logos, aperçu social, 10 photos en WebP + JPEG
+assets/video/           la vidéo de présentation (site 16:9, Facebook 4:5)
+video-source/           de quoi refaire la vidéo, non publié
 10_images_agriculture/  les originaux PNG, non publiés
 ```
 
@@ -115,11 +117,12 @@ vérification les contrôlent à chaque passage.
 
 ## Choix techniques
 
-**La vidéo ne charge rien avant le clic.** Le bouton `#video-cadre` porte un
-`data-video` vide. Au clic, le script insère un `iframe` vers
-`youtube-nocookie.com`. Tant que l'identifiant est vide, un clic affiche un
-message de repli. Aucune requête ne part vers un tiers tant que le visiteur
-n'a pas demandé la vidéo.
+**La vidéo ne charge rien avant le clic.** Le bouton `#video-cadre` porte
+`data-fichier`, le MP4 servi avec le site. Au clic, le script remplace la
+façade par un `<video>` et lance la lecture. Si `data-fichier` est vidé et
+`data-video` reçoit un identifiant YouTube, le script insère à la place un
+`iframe` vers `youtube-nocookie.com`. Si les deux sont vides, un clic affiche
+un message de repli.
 
 **Le formulaire n'envoie rien nulle part.** Il vérifie les champs dans le
 navigateur, affiche un récapitulatif, puis construit un lien `mailto:` que le
@@ -134,6 +137,52 @@ mouvement. Script bloqué, page complète. Mouvement refusé, page complète aus
 
 **L'accordéon FAQ reste natif.** Le balisage utilise `<details>`. Le script
 ajoute seulement l'exclusivité : ouvrir une question referme les autres.
+
+## La vidéo de présentation
+
+Une minute vingt-deux, en motion design, faite pour la page Facebook et la
+recherche d'investissement. Elle ne montre que ce que dit déjà le site — mêmes
+photos, mêmes chiffres, même charte — dans cet ordre : le problème, la
+solution, les trois étapes, les résultats du pilote, un témoignage, le modèle,
+la levée de 34 M F CFA, l'appel à demander le dossier.
+
+| Fichier | Format | Usage |
+|---|---|---|
+| `assets/video/agrotech-faso-presentation.mp4` | 1920 × 1080 | section vidéo du site |
+| `assets/video/agrotech-faso-presentation-facebook.mp4` | 1080 × 1350 | publication Facebook, prend plus de place dans le fil |
+| `assets/video/agrotech-faso-presentation.jpg` | 1920 × 1080 | image d'attente du lecteur |
+
+**Tout est écrit à l'écran.** Sur Facebook, la plupart des vidéos sont vues
+sans le son. Il n'y a donc pas de voix off : la bande son est une nappe
+discrète, synthétisée, sans droits à gérer. Une voix ou une musique de
+l'équipe peut la remplacer : refaire `video-source/nappe.m4a`, puis le rendu.
+
+**Les chiffres de la vidéo sont ceux de la page.** S'ils changent sur le site,
+ils doivent changer dans `video-source/scenes.html`, puis la vidéo doit être
+refaite. La dernière scène porte l'avertissement « phase pilote, projections,
+ni garantie ni offre au public ».
+
+**Refaire la vidéo.** Il faut Node 22 ou plus, Google Chrome et ffmpeg :
+
+```
+video-source/nappe.sh                       # la bande son, si elle change
+node video-source/rendre.mjs                # les deux formats, ~10 min
+node video-source/rendre.mjs facebook       # un seul format
+APERCU=13,34,69 node video-source/rendre.mjs site   # quelques images PNG
+```
+
+Chaque image est une capture de `scenes.html` à l'instant t : la page expose
+`render(t)`, qui place chaque élément sans animation CSS. Le rendu est donc
+exact et reproductible. Ouvrir `scenes.html?w=1080&h=1350&t=40` dans Chrome
+montre l'image de la 40e seconde, au format Facebook.
+
+**Six photos portent une bande d'une autre image sur un bord** (02, 03, 04,
+07, 08, 09 : raccords de génération). La vidéo les recadre avec
+`object-view-box`, sans toucher aux fichiers. Sur le site, elles sont encore
+visibles.
+
+`video-source/` ne fait pas partie du site : il n'est pas nécessaire de le
+mettre en ligne.
 
 ## Mouvement
 
